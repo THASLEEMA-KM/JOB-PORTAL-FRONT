@@ -32,11 +32,17 @@ export const viewAllJobAPI = async()=>{
 export const removeJobAPI = async(id,reqHeader)=>{
 return await commonAPI("DELETE",`${SERVER_URL}/viewjob/${id}/remove`,{},reqHeader)
 }
+
 //  save job
 export const saveJobAPI = async(id,reqBody,reqHeader)=>{
     return await commonAPI("POST",`${SERVER_URL}/viewjob/${id}/savejob`,reqBody,reqHeader)
 }
 //  get saved jobs
-export const getSavedJobsAPI = async()=>{
-    return await commonAPI("GET",`${SERVER_URL}/savedjob`,"")
+export const getSavedJobsAPI = async(reqHeader)=>{
+    return await commonAPI("GET",`${SERVER_URL}/savedjob`,"",reqHeader)
 }
+
+//  remove saved job
+export const removeSavedJobAPI = async(id,reqHeader)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/savedjob/${id}/remove`,{},reqHeader)
+    }

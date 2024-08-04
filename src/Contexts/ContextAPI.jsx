@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react'
-export const applyReponseContext = createContext()
+export const saveReponseContext = createContext()
 function ContextAPI({children}) {
-    const [applyResponse,setApplyResponse] = useState("")
+    const [saveResponse,setSaveResponse] = useState("")
 
   return (
     <>
-        <applyReponseContext.Provider value={{applyResponse,setApplyResponse}}>
+        <saveReponseContext.Provider value={{saveResponse,setSaveResponse}}>
             {children}
-        </applyReponseContext.Provider>
+        </saveReponseContext.Provider>
     </>
   )
 }

@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
+import './header.css'
 
 const Header = ({insideUserDashboard}) => {
 
@@ -11,6 +12,33 @@ const Header = ({insideUserDashboard}) => {
   const handleLogout = ()=>{
     sessionStorage.clear()
     navigate('/')
+  }
+  const token = sessionStorage.getItem("token")
+  const userId = sessionStorage.getItem("user")
+
+  const handlehome =()=>{
+    navigate('/')
+  }
+  const handleviejob =()=>{
+    navigate('/viewjobs')
+  }
+  const handleAppliedjob = ()=>{
+    if(token && userId){
+      navigate('/appliedjobs')
+    }
+    else{
+      alert("Please login first")
+      navigate('/login')
+    }
+  }
+  const handleSavedjob = ()=>{
+    if(token && userId){
+      navigate('/savedjobs')
+    }
+    else{
+      alert("Please login first")
+      navigate('/login')
+    }
   }
 
   return (
@@ -26,10 +54,10 @@ const Header = ({insideUserDashboard}) => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
-                  <Nav.Link   className='text-primary fw-bolder'><Link style={{textDecoration:"none"}} to={'/'}>HOME</Link></Nav.Link>
-                  <Nav.Link className='text-primary fw-bolder'><Link style={{textDecoration:"none"}} to={'/viewjobs'}>VIEW JOBS</Link></Nav.Link>
-                  <Nav.Link  className='text-primary fw-bolder'><Link style={{textDecoration:"none"}} to={'/appliedjobs'}>APPLIED JOBS</Link></Nav.Link>
-                  <Nav.Link  className='text-primary fw-bolder'><Link style={{textDecoration:"none"}} to={'/savedjobs'}>SAVED JOBS</Link></Nav.Link>
+                  <Nav.Link   className='text-primary fw-bolder'><button onClick={handlehome} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >HOME</button></Nav.Link>
+                  <Nav.Link className='text-primary fw-bolder'><button onClick={handleviejob} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >VIEW JOBS</button></Nav.Link>
+                  <Nav.Link  className='text-primary fw-bolder'><button className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} onClick={handleAppliedjob} > APPLIED JOBS</button></Nav.Link>
+                  <Nav.Link className='text-primary fw-bolder'><button className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} onClick={handleSavedjob} >SAVED JOBS</button></Nav.Link>
                 </Nav>
                 <Nav className='ms-auto jusify-content-between'>
                 {
