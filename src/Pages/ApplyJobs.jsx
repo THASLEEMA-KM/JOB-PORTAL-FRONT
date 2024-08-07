@@ -21,7 +21,7 @@ const navigate = useNavigate()
   
 
   const [appliedJobs,setAppliedJobs] = useState({
-    _id:id,
+    jobId: id,
     title:applyResponse.title || "",
     username:"",
     email,
@@ -46,7 +46,7 @@ const navigate = useNavigate()
             reqBody.append("mobile",mobile)
             reqBody.append("resumeFile",resumeFile)
 
-            // console.log(reqBody);
+            console.log(reqBody);
             
             const token = sessionStorage.getItem("token")
             // const userId =JSON.parse(sessionStorage.getItem('user'))?._id;
@@ -62,18 +62,21 @@ const navigate = useNavigate()
               "Content-Type" : "multipart/form-data",
               "Authorization" : `Bearer ${token}`
             };
-            console.log(reqHeader);
+
+            console.log("Request Headers:", reqHeader);
+            console.log("Request Body:", reqBody);
+            // alert("make api call")
             
             try {
               const result = await applyJobAPI(id,reqBody,reqHeader)
               console.log(result);
-              console.log("inside try");
+              console.log("line 70 inside try");
               
               if(result.status==200){
                   toast.success("Job Applied Successfully!")
                   setApplyResponse(result)
                   setAppliedJobs({
-                    _id:id,
+                    jobId: id,
                     title:applyResponse.title || "",
                     username:"",
                     email:"",
@@ -90,6 +93,27 @@ const navigate = useNavigate()
               // toast.error("Something went wrong. Please try again later.");
             
             }
+
+            // try {
+            //   const result =  await applyJobAPI(id,appliedJobs,reqHeader)
+            //   if(result.status==200){
+            //    toast.success("Job Applied Successfully!")
+            //    setApplyResponse(result)
+            //       setAppliedJobs({
+            //         _id:id,
+            //         title:applyResponse.title || "",
+            //         username:"",
+            //         email:"",
+            //         mobile:"",
+            //         resumeFile:null
+            //       })
+            //   }
+            //   else{
+            //    toast.warning("Job Already Applied")
+            //   }
+            //   } catch (error) {
+            //    console.log(error);
+            //   }
           }
           else{
             toast.info("Please login first to apply job")

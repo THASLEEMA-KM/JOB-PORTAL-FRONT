@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { applyReponseContext } from '../Contexts/ContextAPI'
+import { getAppliedJobsAPI } from '../Services/allAPI'
 
 function AppliedJobs() {
 
     const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+    const [userAppliedJobs,setUserAppliedJobs] = useState([])
+    console.log(userAppliedJobs);
+    
 
+    useEffect(()=>{
+        getUserAppliedJobs()
+    },[applyResponse])
+
+    const getUserAppliedJobs = async()=>{
+        const token = sessionStorage.getItem("token")
+        if(token){
+            const reqHeader = {
+                "Content-Type" : "application/json",
+                "Authorization" : `Bearer ${token}`
+              }
+              try {
+                const result = await getAppliedJobsAPI(reqHeader)
+                if(result.status==200){
+                 setUserAppliedJobs(result.data)   
+                }
+              } catch (error) {
+                console.log(error);
+                
+              }
+        }
+    }
 
   return (
     <>
@@ -22,6 +48,7 @@ function AppliedJobs() {
                         <tr>
                             <th>#</th>
                             <th>Job Name</th>
+                            <th>User Name</th>
                             <th>email</th>
                             <th>status</th>
                             <th>cv</th>
@@ -29,14 +56,23 @@ function AppliedJobs() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>jjh</td>
-                            <td>gwj</td>
-                            <td>se</td>
-                            <td>edrtfr</td>
-                            <td>vfre</td>
-                        </tr>
+                        {
+                            userAppliedJobs?.length>0 ?
+                            userAppliedJobs?.map((items,index)=>(
+                                <tr key={items?.id}>
+                                <td>{index+1}</td>
+                                <td>{items?.title}</td>
+                                <td>{items?.username}</td>
+                                <td>{items.email}</td>
+                                <td>edrtfr</td>
+                                <td>{items.resumeFile}</td>
+                                <td>edrtfr</td>
+                                </tr>
+                            )):
+                            <div>
+                                no applied jobs
+                            </div>
+                            }
                     </tbody>
                 </table>
            </div>
