@@ -2,16 +2,19 @@ import React, {  useContext, useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { useNavigate, useParams } from 'react-router-dom'
 import { saveJobAPI, viewAJobAPI } from '../Services/allAPI'
-import { saveReponseContext } from '../Contexts/ContextAPI'
+import { applyReponseContext, saveReponseContext } from '../Contexts/ContextAPI'
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function ViewAJob() {
 
   const {saveResponse,setSaveResponse} = useContext(saveReponseContext)
+  const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+
   const navigate = useNavigate()
 
-  const [jobDetails,setJobDetails] = useState([])
+  const [jobDetails,setJobDetails] = useState({})
 
   console.log(jobDetails);
   const {id} = useParams()
@@ -21,18 +24,18 @@ function ViewAJob() {
       console.log(result);
       if(result.status==200){
           setJobDetails(result.data)
+          setApplyResponse(result.data)
       }
   } catch (error) {
       console.log(error);
   }
   }
 
-  const handleApplyJob = async()=>{
+  const handleApplyJob = async(id)=>{
     const token = sessionStorage.getItem("token")
     const userId = sessionStorage.getItem("user")
-    // setApplyResponse()
     if(token && userId){
-      navigate('/applyAjob')
+      navigate(`/viewjobs/${id}/applyAjob`);
     }
     else{
       toast.info("Please login first to apply job")
@@ -110,3 +113,5 @@ function ViewAJob() {
 }
 
 export default ViewAJob
+
+

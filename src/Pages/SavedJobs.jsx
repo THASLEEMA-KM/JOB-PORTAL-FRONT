@@ -77,7 +77,7 @@ useEffect(()=>{
                       <Card.Text>Salary : {item?.salary}</Card.Text>
                       <Card.Text>Deadline : {item?.deadline} </Card.Text>
                       <div className='justify-content-between d-flex'>
-                        <Card.Link className='btn btn-outline-primary' ><Link to={'/viewjobdetails'}>View Details</Link> <i className="fa-solid fa-arrow-right"></i> </Card.Link>
+                        <Card.Link className='btn btn-outline-primary' ><Link to={`/viewjobs/${item._id}`}>View Details</Link> <i className="fa-solid fa-arrow-right"></i> </Card.Link>
                         <button onClick={()=>handledeleteSavedJob(item?._id)} className="btn btn-secondary text-danger">
                           <i className="fa-solid fa-trash"></i>
                         </button>

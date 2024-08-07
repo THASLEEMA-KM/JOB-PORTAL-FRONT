@@ -1,7 +1,12 @@
 import React from 'react'
 import Header from '../Components/Header'
+import { applyReponseContext } from '../Contexts/ContextAPI'
 
 function AppliedJobs() {
+
+    const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+
+
   return (
     <>
      <Header insideUserDashboard={true}/>   

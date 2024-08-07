@@ -32,9 +32,9 @@ function App() {
 
         {/* user  */}
         <Route path='/viewjobs' element={<ViewJob/>}></Route>
-        <Route path='/viewjobs/:id/viewjobdetails' element={<ViewAJob/>}></Route>
+        <Route path='/viewjobs/:id' element={<ViewAJob/>}></Route>
         <Route path='/appliedjobs' element={<AppliedJobs/>}></Route>
-        <Route path='/applyAjob' element={<ApplyJobs/>}></Route>
+        <Route path='/viewjobs/:id/applyAjob' element={<ApplyJobs/>}></Route>
         <Route path='/savedjobs' element={<SavedJobs/>}></Route>
         <Route path='/userdashboard' element={<UserDashboard/>}></Route>
 
@@ -42,7 +42,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard/>}></Route>
         <Route path='/postjobs' element={<PostJobs/>} ></Route>
         <Route path='/viewJobsAdmin' element={<ViewJobAdmin/>}></Route>
-        <Route path='/viewJobsAdmin/:id/viewjobdetailsAdmin' element={<ViewAJobAdmin/>}></Route>
+        <Route path='/viewJobsAdmin/:id' element={<ViewAJobAdmin/>}></Route>
         <Route path='/viewapplications' element={<ViewApplications/>}></Route>
 
       </Routes>
