@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { applyReponseContext } from '../Contexts/ContextAPI'
-import { getAppliedJobsAPI } from '../Services/allAPI'
+import { getAppliedJobsAPI, removeAppliedJobAPI } from '../Services/allAPI'
 
 function AppliedJobs() {
 
@@ -32,6 +32,26 @@ function AppliedJobs() {
               }
         }
     }
+    const handleDeleteAppliedJob = async(jid)=>{
+        const token = sessionStorage.getItem("token")
+        if(token){
+          const reqHeader = {
+            "Content-Type" : "application/json",
+            "Authorization" : `Bearer ${token}`
+          }
+          try {
+            const result = await removeAppliedJobAPI(jid,reqHeader)
+            if(result.status==200){
+                getUserAppliedJobs()
+            }
+            else{
+              console.log(result);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+    }
 
   return (
     <>
@@ -39,7 +59,7 @@ function AppliedJobs() {
      <div style={{marginTop:"150px"}}>
 
         <h1 className="my-3 text-center">All Applications</h1>
-        <p className='text-center'>Total Count :9</p>
+        <p className='text-center'>Total Count :{userAppliedJobs?.length}</p>
         <div className='row container-fluid mt-5'>
             <div className="col"></div>
            <div className='col-lg-8'>
@@ -53,6 +73,7 @@ function AppliedJobs() {
                             <th>status</th>
                             <th>cv</th>
                             <th>action</th>
+                            <th><i className="fa-solid fa-ellipsis"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,6 +88,10 @@ function AppliedJobs() {
                                 <td>edrtfr</td>
                                 <td>{items.resumeFile}</td>
                                 <td>edrtfr</td>
+                                <td>
+                                {/* <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button> */}
+                                <i onClick={()=>handleDeleteAppliedJob(items?._id)} className="fa-solid fa-trash  text-danger"></i> 
+                                </td>
                                 </tr>
                             )):
                             <div>

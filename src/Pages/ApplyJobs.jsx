@@ -32,8 +32,8 @@ const navigate = useNavigate()
   console.log(appliedJobs);
   
 
-  const handleApplyAJob = async () =>{
-   
+  const handleApplyAJob = async (e) =>{
+   e.preventDefault()
     const {title,username,email,mobile,resumeFile} = appliedJobs
     if(appliedJobs.title && appliedJobs.username && appliedJobs.email && appliedJobs.mobile && appliedJobs.resumeFile)
       {
@@ -115,10 +115,6 @@ const navigate = useNavigate()
             //    console.log(error);
             //   }
           }
-          else{
-            toast.info("Please login first to apply job")
-            navigate('/login')
-          }
       }else{
         alert("Please fill the form completely")
       }
@@ -173,7 +169,7 @@ const navigate = useNavigate()
               </FloatingLabel>
 
               <div className="text-center my-3">
-                <button onClick={handleApplyAJob} className="btn btn-info">APPLY</button>
+                <button type='button' onClick={handleApplyAJob} className="btn btn-info">APPLY</button>
               </div>
           </Form>
           </div>

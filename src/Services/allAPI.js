@@ -49,9 +49,19 @@ export const removeSavedJobAPI = async(id,reqHeader)=>{
     
 // apply to job
 export const applyJobAPI = async(id,reqBody,reqHeader)=>{
-    return await commonAPI("POST",`${SERVER_URL}/viewjob/${id}/applyjob`,reqBody,reqHeader)
+    return await commonAPI("POST",`${SERVER_URL}/viewjob/${id}`,reqBody,reqHeader)
 }
 // get applied jobs
 export const getAppliedJobsAPI = async(reqHeader)=>{
     return await commonAPI("GET",`${SERVER_URL}/appliedjob`,"",reqHeader)
 }
+
+// remove applied jobs
+export const removeAppliedJobAPI = async(id,reqHeader)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/appliedjob/${id}/remove`,{},reqHeader)
+    }
+
+// get applied jobs
+export const getAllAppliedJobsAPI = async(id,reqHeader)=>{
+    return await commonAPI("GET",`${SERVER_URL}/viewjob/${id}/viewApplication`,"",reqHeader)
+}    
