@@ -4,6 +4,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import './header.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = ({insideUserDashboard}) => {
 
@@ -27,7 +29,7 @@ const Header = ({insideUserDashboard}) => {
       navigate('/appliedjobs')
     }
     else{
-      alert("Please login first")
+      toast.warning("Please login first")
       navigate('/login')
     }
   }
@@ -36,7 +38,7 @@ const Header = ({insideUserDashboard}) => {
       navigate('/savedjobs')
     }
     else{
-      alert("Please login first")
+      toast.warning("Please login first")
       navigate('/login')
     }
   }
@@ -85,6 +87,8 @@ const Header = ({insideUserDashboard}) => {
               </Navbar.Collapse>
             </Container>
       </Navbar>
+      <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
+
     </>
   )
 }

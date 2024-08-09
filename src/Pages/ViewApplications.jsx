@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AdminHeader from '../Components/AdminHeader'
-import { applyReponseContext } from '../Contexts/ContextAPI'
+import { applyReponseContext, deleteAppliedJobResponseContext } from '../Contexts/ContextAPI'
 import { getAllAppliedJobsAPI } from '../Services/allAPI'
 import { useParams } from 'react-router-dom'
 
 function ViewApplications() {
 
     const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+    const {deleteAppliedJobResponse,setDeleteAppliedJobResponse} = useContext(deleteAppliedJobResponseContext)
+
     const [allApplications,setAllApplications] = useState([])
     const {id} = useParams()
 
     useEffect(()=>{
         getAllApplications()
-    },[applyResponse])
+    },[applyResponse,deleteAppliedJobResponse])
 
     const getAllApplications = async(req,res)=>{
         const token = sessionStorage.getItem("token")
@@ -24,6 +26,7 @@ function ViewApplications() {
             try {
                 const result = await getAllAppliedJobsAPI(id,reqHeader)
                 if(result.status==200){
+                    // setDeleteAppliedJobResponse(result.data)
                     setAllApplications(result.data)
                 }
             } catch (error) {

@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../Components/Header'
-import { applyReponseContext } from '../Contexts/ContextAPI'
+import { applyReponseContext, deleteAppliedJobResponseContext } from '../Contexts/ContextAPI'
 import { getAppliedJobsAPI, removeAppliedJobAPI } from '../Services/allAPI'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AppliedJobs() {
 
     const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+    const {deleteAppliedJobResponse,setDeleteAppliedJobResponse} = useContext(deleteAppliedJobResponseContext)
+     
     const [userAppliedJobs,setUserAppliedJobs] = useState([])
     console.log(userAppliedJobs);
     
@@ -42,6 +45,7 @@ function AppliedJobs() {
           try {
             const result = await removeAppliedJobAPI(jid,reqHeader)
             if(result.status==200){
+              setDeleteAppliedJobResponse(result)
                 getUserAppliedJobs()
             }
             else{
@@ -105,6 +109,7 @@ function AppliedJobs() {
 
         </div>
     </div>
+    <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
     </>
   )
 }

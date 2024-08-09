@@ -43,7 +43,7 @@ function App() {
         <Route path='/postjobs' element={<PostJobs/>} ></Route>
         <Route path='/viewJobsAdmin' element={<ViewJobAdmin/>}></Route>
         <Route path='/viewJobsAdmin/:id' element={<ViewAJobAdmin/>}></Route>
-        <Route path='/viewapplications' element={<ViewApplications/>}></Route>
+        <Route path='/viewJobsAdmin/:id/viewapplications' element={<ViewApplications/>}></Route>
 
       </Routes>
       <Footer/>
