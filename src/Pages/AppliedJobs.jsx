@@ -1,22 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Header from '../Components/Header'
-import { applyReponseContext, deleteAppliedJobResponseContext } from '../Contexts/ContextAPI'
+import { applyReponseContext, deleteAppliedJobResponseContext, updateJobStatusResponseContext } from '../Contexts/ContextAPI'
 import { getAppliedJobsAPI, removeAppliedJobAPI } from '../Services/allAPI'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function AppliedJobs() {
 
     const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
     const {deleteAppliedJobResponse,setDeleteAppliedJobResponse} = useContext(deleteAppliedJobResponseContext)
-     
+    const {updateJobStatus} = useContext(updateJobStatusResponseContext)
+    
     const [userAppliedJobs,setUserAppliedJobs] = useState([])
     console.log(userAppliedJobs);
     
-
-    useEffect(()=>{
-        getUserAppliedJobs()
-    },[applyResponse])
-
     const getUserAppliedJobs = async()=>{
         const token = sessionStorage.getItem("token")
         if(token){
@@ -45,7 +42,8 @@ function AppliedJobs() {
           try {
             const result = await removeAppliedJobAPI(jid,reqHeader)
             if(result.status==200){
-              setDeleteAppliedJobResponse(result)
+              setDeleteAppliedJobResponse(result.data)
+              // setDeleteAppliedJobResponse(prev => !prev)
                 getUserAppliedJobs()
             }
             else{
@@ -56,6 +54,21 @@ function AppliedJobs() {
           }
         }
     }
+    const getStatusClassName = (status) => {
+      switch(status) {
+          case 'Approved':
+              return 'text-success'; // Green for accepted
+          case 'Rejected':
+              return 'text-danger'; // Red for rejected
+          case 'Pending':
+              return 'text-warning'; // Yellow for pending
+          default:
+              return 'text-secondary'; // Default for unknown status
+      }
+  }
+    useEffect(()=>{
+      getUserAppliedJobs()
+  },[applyResponse,deleteAppliedJobResponse,updateJobStatus])
 
   return (
     <>
@@ -76,7 +89,7 @@ function AppliedJobs() {
                             <th>email</th>
                             <th>status</th>
                             <th>cv</th>
-                            <th>action</th>
+                            {/* <th>action</th> */}
                             <th><i className="fa-solid fa-ellipsis"></i></th>
                         </tr>
                     </thead>
@@ -88,10 +101,13 @@ function AppliedJobs() {
                                 <td>{index+1}</td>
                                 <td>{items?.title}</td>
                                 <td>{items?.username}</td>
-                                <td>{items.email}</td>
-                                <td>edrtfr</td>
-                                <td>{items.resumeFile}</td>
-                                <td>edrtfr</td>
+                                <td>{items?.email}</td>
+                                <td className={getStatusClassName(items?.status)}>{items?.status}</td>
+                                {/* <td className="items.status=='Approved'?'text-success'">{items?.status}</td> */}
+
+                                <td>{items?.resumeFile}</td>
+
+                                {/* <td>edrtfr</td> */}
                                 <td>
                                 {/* <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button> */}
                                 <i onClick={()=>handleDeleteAppliedJob(items?._id)} className="fa-solid fa-trash  text-danger"></i> 
@@ -115,3 +131,4 @@ function AppliedJobs() {
 }
 
 export default AppliedJobs
+

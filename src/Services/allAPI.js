@@ -18,6 +18,13 @@ export const postjobAPI = async(reqBody,reqHeader)=>
     {
         return await commonAPI("POST",`${SERVER_URL}/postjob`,reqBody,reqHeader)
     }
+
+// edit a job
+export const editAJobAPI = async(id,reqBody,reqHeader)=>
+    {
+        return await commonAPI("PUT",`${SERVER_URL}/viewjob/${id}/edit`,reqBody,reqHeader)
+    } 
+
 // viewjob
 export const viewAllJobAPI = async()=>{
     return await commonAPI("GET",`${SERVER_URL}/viewjob`,"")
@@ -64,4 +71,14 @@ export const removeAppliedJobAPI = async(id,reqHeader)=>{
 // get applied jobs
 export const getAllAppliedJobsAPI = async(id,reqHeader)=>{
     return await commonAPI("GET",`${SERVER_URL}/viewjob/${id}/viewApplication`,"",reqHeader)
-}    
+}  
+
+// update job status 
+export const updateJobStatusAPI = async(id,applicationId,data,reqHeader)=>{
+    return await commonAPI("PUT",`${SERVER_URL}/viewjob/${id}/viewApplication/${applicationId}/status`,data,reqHeader)
+}
+
+// remove an user application
+export const removeAnApplicationAPI = async(id,reqHeader)=>{
+    return await commonAPI("DELETE",`${SERVER_URL}/viewjob/${id}/viewApplication/${id}/remove`,{},reqHeader)
+}

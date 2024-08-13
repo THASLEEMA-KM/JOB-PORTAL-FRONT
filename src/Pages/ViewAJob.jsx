@@ -2,7 +2,7 @@ import React, {  useContext, useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { useNavigate, useParams } from 'react-router-dom'
 import { saveJobAPI, viewAJobAPI } from '../Services/allAPI'
-import { applyReponseContext, saveReponseContext } from '../Contexts/ContextAPI'
+import { applyReponseContext, editJobResponseContext, saveReponseContext } from '../Contexts/ContextAPI'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +11,7 @@ function ViewAJob() {
 
   const {saveResponse,setSaveResponse} = useContext(saveReponseContext)
   const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+  const {editJobResponse,setEditJobResponse} = useContext(editJobResponseContext)
 
   const navigate = useNavigate()
 
@@ -80,7 +81,7 @@ function ViewAJob() {
 
   useEffect(()=>{
       getJobDetails(id)
-  },[])
+  },[editJobResponse])
   
 
   return (

@@ -4,10 +4,11 @@ import Card from 'react-bootstrap/Card';
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getSavedJobsAPI, removeSavedJobAPI } from '../Services/allAPI';
-import { saveReponseContext } from '../Contexts/ContextAPI';
+import { editJobResponseContext, saveReponseContext } from '../Contexts/ContextAPI';
 
 function SavedJobs() {
 const {saveResponse,setSaveResponse} = useContext(saveReponseContext)
+const {editJobResponse,setEditJobResponse} = useContext(editJobResponseContext)
 const [savedJobs,setSavedJobs] = useState([])
 console.log(savedJobs);
 
@@ -57,7 +58,7 @@ const handledeleteSavedJob = async (jid)=>{
 useEffect(()=>{
   getSavedJobs()
 },
-[saveResponse])
+[saveResponse,editJobResponse])
 
   return (
     <div>

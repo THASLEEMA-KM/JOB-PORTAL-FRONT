@@ -1,22 +1,35 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AdminHeader from '../Components/AdminHeader'
-import { applyReponseContext, deleteAppliedJobResponseContext } from '../Contexts/ContextAPI'
-import { getAllAppliedJobsAPI } from '../Services/allAPI'
+import { applyReponseContext, deleteAppliedJobResponseContext, updateJobStatusResponseContext } from '../Contexts/ContextAPI'
+import { getAllAppliedJobsAPI, removeAnApplicationAPI, updateJobStatusAPI } from '../Services/allAPI'
 import { useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ViewApplications() {
 
     const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
     const {deleteAppliedJobResponse,setDeleteAppliedJobResponse} = useContext(deleteAppliedJobResponseContext)
+    const {updateJobStatus,setUpdateJobStatus} = useContext(updateJobStatusResponseContext)
 
+    // const [statusChange,setStatusChange] = useState({
+    //     status:''
+    // })
     const [allApplications,setAllApplications] = useState([])
+    // const [allApplications,setAllApplications] = useState({
+    //     username:"",
+    //     email:"",
+    //     resumeFile:"",
+    //     status:"",
+    // })
+console.log(allApplications);
+
+
     const {id} = useParams()
 
-    useEffect(()=>{
-        getAllApplications()
-    },[applyResponse,deleteAppliedJobResponse])
 
-    const getAllApplications = async(req,res)=>{
+
+    const getAllApplications = async()=>{
         const token = sessionStorage.getItem("token")
         if(token){
             const reqHeader = {
@@ -26,7 +39,6 @@ function ViewApplications() {
             try {
                 const result = await getAllAppliedJobsAPI(id,reqHeader)
                 if(result.status==200){
-                    // setDeleteAppliedJobResponse(result.data)
                     setAllApplications(result.data)
                 }
             } catch (error) {
@@ -35,6 +47,74 @@ function ViewApplications() {
             } 
         }
     }
+    const handleStatusChange = async (e,applicationId)=>
+    {
+        const newStatus = e.target.value;
+        console.log(newStatus,applicationId);
+        const token = sessionStorage.getItem("token")
+        if(token){
+            try {
+                const reqHeader = {
+                    "Content-Type" : "application/json",
+                    "Authorization" : `Bearer ${token}`
+                  }
+                const result = await updateJobStatusAPI(id,applicationId, { status: newStatus },reqHeader)
+                if(result.status==200){
+                    setAllApplications(prev => 
+                        prev.map(application => 
+                            application._id === applicationId 
+                            ? { ...application, status: newStatus } 
+                            : application
+                        )
+                    );
+                    setUpdateJobStatus(result)
+                    toast.info("job status updated")
+
+                }
+            } catch (error) {
+                console.log(error);               
+            }
+        }
+        
+    }
+
+    // const handleDeleteApplication = async(applicationId)=>{
+    //     console.log("deleting application id" , applicationId);
+    //     const token = sessionStorage.getItem("token")
+    //     if(token){
+    //       const reqHeader = {
+    //         "Content-Type" : "application/json",
+    //         "Authorization" : `Bearer ${token}`
+    //       }
+    //       try {
+    //         const result = await removeAnApplicationAPI(applicationId,reqHeader)
+    //         if(result.status==200){
+            
+    //             getAllApplications()
+    //         }
+    //         else{
+    //           console.log(result);
+    //         }
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    //     }
+    // }
+    const getStatusClassName = (status) => {
+        switch(status) {
+            case 'Approved':
+                return 'text-success'; // Green for accepted
+            case 'Rejected':
+                return 'text-danger'; // Red for rejected
+            case 'Pending':
+                return 'text-warning'; // Yellow for pending
+            default:
+                return 'text-secondary'; // Default for unknown status
+        }
+    }
+    useEffect(()=>{
+        getAllApplications()
+    },[applyResponse,deleteAppliedJobResponse,updateJobStatus])
 
   return (
     <div style={{marginTop:"150px"}}>
@@ -53,25 +133,44 @@ function ViewApplications() {
                             <th>status</th>
                             <th>cv</th>
                             <th>action</th>
-                            <th><i className="fa-solid fa-ellipsis"></i></th>
+                            {/* <th><i className="fa-solid fa-ellipsis"></i></th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {
                              allApplications?.length>0 ?
                              allApplications?.map((items,index)=>(
-                                 <tr key={items?.id}>
+                                 <tr key={items?._id}>
 
                                  <td>{index+1}</td>                        
                                  <td>{items?.username}</td>
-                                 <td>{items.email}</td>
-                                 <td>pending / ok/ reject</td>
-                                 <td>{items.resumeFile}</td>
-                                 <td>pass</td>
-                                 <td>
-                                 {/* <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button> */}
-                                 <i className="fa-solid fa-trash  text-danger"></i> 
+                                 <td>{items?.email}</td>
+                                 <td className={getStatusClassName(items?.status)}>
+                                    {items?.status}
                                  </td>
+                                 <td>
+                                 <a className='btn btn-outline-primary rounded-5' href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
+            Download CV
+          </a>
+                                 </td>
+                                 <td>
+                                 <select name="" id="" className='form-control '
+                                    value={items?.status}
+                                    onChange={(e)=>handleStatusChange(e,items._id)}
+                                    // onChange={(e)=>setStatusChange({...statusChange,status:e.target.value})}
+                                    >
+                                        <option value="" selected disabled hidden> Select one</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Rejected">Rejected</option>
+                                    </select>
+                                 </td>
+
+                                 {/* <td>
+                                 <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button>
+                                 <i onClick={()=>handleDeleteApplication(items?._id)} className="fa-solid fa-trash text-danger"></i> 
+                                 </td> */}
+                                 
                                  </tr>
                              )):
                              <div>
@@ -84,8 +183,11 @@ function ViewApplications() {
            <div className="col"></div>
 
         </div>
+        <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
+
     </div>
   )
 }
 
 export default ViewApplications
+

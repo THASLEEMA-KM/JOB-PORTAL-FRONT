@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import AdminHeader from '../Components/AdminHeader';
-import { viewAJobAPI } from '../Services/allAPI';
+import { editAJobAPI, viewAJobAPI } from '../Services/allAPI';
 import Modal from 'react-bootstrap/Modal';
 import { Button, Form } from 'react-bootstrap';
+import { editJobResponseContext } from '../Contexts/ContextAPI';
 
 function ViewAJobAdmin() {
+  const {editJobResponse,setEditJobResponse} = useContext(editJobResponseContext)
+  const navigate = useNavigate()
   const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
     const [jobDetails,setJobDetails] = useState([])
 
@@ -26,9 +26,95 @@ function ViewAJobAdmin() {
         console.log(error);
     }
     }
+
+    const [updatedJob,setUpdatedJob] = useState({
+      id:jobDetails._id,
+      title:jobDetails.title,
+      company:jobDetails.company,
+      location:jobDetails.location,
+      category:jobDetails.category,
+      email:jobDetails.email,
+      description:jobDetails.description,
+      jobType:jobDetails.jobType,
+      salary:jobDetails.salary,
+      deadline:jobDetails.deadline,
+      experience:jobDetails.experience,
+      vacancy:jobDetails.vacancy
+    })
+    console.log(updatedJob);
+    
+    const handleShow = async (id) => {
+      setShow(true);
+      console.log(id);
+      setUpdatedJob({
+        id:jobDetails._id,
+        title:jobDetails.title,
+        company:jobDetails.company,
+        location:jobDetails.location,
+        category:jobDetails.category,
+        email:jobDetails.email,
+        description:jobDetails.description,
+        jobType:jobDetails.jobType,
+        salary:jobDetails.salary,
+        deadline:jobDetails.deadline,
+        experience:jobDetails.experience,
+        vacancy:jobDetails.vacancy
+      })
+    }
+    const handleClose = () => {
+      setShow(false);
+      setUpdatedJob({
+        id:jobDetails._id,
+        title:jobDetails.title,
+        company:jobDetails.company,
+        location:jobDetails.location,
+        category:jobDetails.category,
+        email:jobDetails.email,
+        description:jobDetails.description,
+        jobType:jobDetails.jobType,
+        salary:jobDetails.salary,
+        deadline:jobDetails.deadline,
+        experience:jobDetails.experience,
+        vacancy:jobDetails.vacancy
+      })
+    }
+    const handleUpdateJob = async()=>{
+      const {title,salary,email,company,location,description,category,jobType,experience,vacancy,deadline} = updatedJob
+      if(updatedJob.title && updatedJob.salary && updatedJob.email && updatedJob.company && updatedJob.location && updatedJob.description && updatedJob.category && updatedJob.jobType && updatedJob.experience && updatedJob.vacancy && updatedJob.deadline){
+
+        const token = sessionStorage.getItem("token")
+        if(token){
+          try {
+            const reqHeader = {
+              "Content-Type" : "application/json",
+              "Authorization" : `Bearer ${token}`
+            }
+            const result = await editAJobAPI(id,updatedJob,reqHeader)
+            console.log(result);
+            
+            if(result.status==200){
+              setEditJobResponse(result)
+              alert("updation success")
+              // setEditJobResponse(result)
+              handleClose()
+              // navigate('/viewJobsAdmin')
+            }
+            else{
+              console.log(result.response);              
+            }
+          } catch (error) {
+            console.log(error);
+            
+          }
+        }
+      }
+      else{
+        alert("Please fillthe form completely!!")
+      }
+    }
     useEffect(()=>{
         getJobDetails(id)
-    },[])
+    },[editJobResponse])
 
   return (
     <>
@@ -48,7 +134,7 @@ function ViewAJobAdmin() {
               <h3>Experience : {jobDetails?.experience}</h3>
               <h3>Vacancies : {jobDetails?.vacancy}</h3>
               <div className="d-flex mt-5 justify-content-evenly">
-                <button onClick={handleShow} className="btn btn-warning">Edit</button>
+                <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning">Edit</button>
                 <button className="btn btn-outline-primary"><Link style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
               </div>
           </div>
@@ -69,23 +155,30 @@ function ViewAJobAdmin() {
                       <Form.Group className="mb-3 me-2" controlId="formGroupTitle">
                           <Form.Label className='text-black'>Title : </Form.Label>
                           <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter title of job"
+                          value={updatedJob?.title}
+                          onChange={(e)=>setUpdatedJob({...updatedJob,title:e.target.value})}
                           />
                       </Form.Group>
                       <Form.Group className="mb-3 me-2" controlId="formGroupSalary">
                           <Form.Label  className='text-black'>Salary : </Form.Label>
                           <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter job Salary" 
-                          // value={postJob.salary}
-                          // onChange={(e)=>setPostJob({...postJob,salary:e.target.value})}
+                          value={updatedJob?.salary}
+                          onChange={(e)=>setUpdatedJob({...updatedJob,salary:e.target.value})}
                           />
                       </Form.Group>
                       <Form.Group className="mb-3 me-2" controlId="formGroupEmail">
                           <Form.Label  className='text-black'>Email : </Form.Label>
                           <Form.Control className='border rounded p-3 text-black' type="email" placeholder="Enter Email"
-                           />
+                           value={updatedJob?.email}
+                           onChange={(e)=>setUpdatedJob({...updatedJob,email:e.target.value})}
+/>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formGroupCompany">
                           <Form.Label  className='text-black'>Company : </Form.Label>
                           <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter Company name" 
+                          value={updatedJob?.company}
+                          onChange={(e)=>setUpdatedJob({...updatedJob,company:e.target.value})}
+
                           />
                       </Form.Group>
                    </div>
@@ -94,31 +187,39 @@ function ViewAJobAdmin() {
                       <Form.Group className="mb-3 me-2" controlId="formGroupLocation">
                           <Form.Label  className='text-black'>Location : </Form.Label>
                           <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter Company Location" 
-                          />
+                          value={updatedJob?.location}
+                          onChange={(e)=>setUpdatedJob({...updatedJob,location:e.target.value})}
+/>
                       </Form.Group>
                       <Form.Group className="mb-3 me-2" controlId="formGroupCategory">
                           <Form.Label className='text-black'>Category : </Form.Label>
-                          <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Entar job Category" 
-                         />
+                          <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter job Category" 
+                         value={updatedJob?.category}
+                         onChange={(e)=>setUpdatedJob({...updatedJob,category:e.target.value})}
+/>
                       </Form.Group>
                       <Form.Group className="mb-3 me-2" controlId="formGroupExperience">
                           <Form.Label  className='text-black'>Experience : </Form.Label>
-                          <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Entar Experience" 
-                         />
+                          <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter Experience" 
+                         value={updatedJob?.experience}
+                         onChange={(e)=>setUpdatedJob({...updatedJob,experience:e.target.value})}
+/>
                       </Form.Group>
                       <Form.Group className="mb-3 me-2" controlId="formGroupVacancy">
                           <Form.Label  className='text-black'>Vacancy : </Form.Label>
-                          <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Entar job Vacancy"
-                           />
+                          <Form.Control className='border rounded p-3 text-black' type="text" placeholder="Enter job Vacancy"
+                           value={updatedJob?.vacancy}
+                           onChange={(e)=>setUpdatedJob({...updatedJob,vacancy:e.target.value})}
+/>
                       </Form.Group>
                     </div>
                     <Form.Group className="mb-3" controlId="formGroupJobtype">
                           <Form.Label  className='text-black'>Job type : </Form.Label>
                               <select name="" id="" className='form-control mb-3 border p-3 w-100 rounded'
                             
-                              // value={postJob.jobType}
-                              // onChange={(e)=>setPostJob({...postJob,jobType:e.target.value})}
-                              >
+                            value={updatedJob?.jobType}
+                            onChange={(e)=>setUpdatedJob({...updatedJob,jobType:e.target.value})}
+                            >
                                   <option selected disabled hidden value="">Select job type</option>
                                   <option value="Part Time">Part Time</option>
                                   <option value="Full Time">Full Time</option>
@@ -128,7 +229,10 @@ function ViewAJobAdmin() {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formGroupDeadline">
                           <Form.Label className='text-black'>Deadline : </Form.Label>
-                          <Form.Control className='border rounded p-3 text-black' type="date" placeholder="Entar job Deadline" />
+                          <Form.Control className='border rounded p-3 text-black' type="date" placeholder="Enter job Deadline" 
+                          value={updatedJob?.deadline}
+                          onChange={(e)=>setUpdatedJob({...updatedJob,deadline:e.target.value})}
+/>
                       </Form.Group>
                     <Form.Group className="mb-3" controlId="formGroupDescription">
                         <Form.Label  className='text-black'>Description : </Form.Label>
@@ -138,6 +242,9 @@ function ViewAJobAdmin() {
                             placeholder="Enter A description about the job"
                             // style={{ height: '100px' }}
                             style={{height: '100px'}}
+                            value={updatedJob?.description}
+                            onChange={(e)=>setUpdatedJob({...updatedJob,description:e.target.value})}
+
                             />
                     </Form.Group>
                     {/* <Form.Group className="mb-3" controlId="formGroupDeadline">
@@ -153,7 +260,7 @@ function ViewAJobAdmin() {
               <Button variant="secondary" onClick={handleClose}>
                 Cancel
               </Button>
-              <Button variant="primary">Update</Button>
+              <Button onClick={handleUpdateJob} variant="primary">Update</Button>
             </Modal.Footer>
           </Modal>
 

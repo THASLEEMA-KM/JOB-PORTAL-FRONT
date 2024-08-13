@@ -85,6 +85,7 @@ const navigate = useNavigate()
                   })
                   navigate('/viewjobs')
               }else{
+                // toast.warning("job already applied")
                   toast.warning(result.response.data)
               }
             }catch(error) { 

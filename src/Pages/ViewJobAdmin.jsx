@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import { Col, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,15 +6,17 @@ import { removeJobAPI, viewAJobAPI, viewAllJobAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminHeader from '../Components/AdminHeader';
+import { editJobResponseContext } from '../Contexts/ContextAPI';
 
 const ViewJobAdmin = () => {
+  const {editJobResponse,setEditJobResponse} = useContext(editJobResponseContext)
   const navigate = useNavigate()
   const [allJobs,setAllJobs] = useState([])
   console.log(allJobs);
 
   useEffect(()=>{
     viewAllJobs()
-  },[])
+  },[editJobResponse])
 
 
   const viewAllJobs = async()=>{
