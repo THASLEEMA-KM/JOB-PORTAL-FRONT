@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from './Components/Footer'
 // import Header from './Components/Header'
@@ -16,10 +16,16 @@ import ViewJobAdmin from './Pages/ViewJobAdmin'
 import ViewAJobAdmin from './Pages/ViewAJobAdmin'
 import SavedJobs from './Pages/SavedJobs'
 import UserDashboard from './Pages/UserDashboard'
+import UserProfile from './Pages/UserProfile'
+// import { useContext } from 'react'
+// import { tokenAuthContext } from './Contexts/AuthContext'
+
 
 
 
 function App() {
+
+// const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
 
   return (
     <>
@@ -33,10 +39,13 @@ function App() {
         {/* user  */}
         <Route path='/viewjobs' element={<ViewJob/>}></Route>
         <Route path='/viewjobs/:id' element={<ViewAJob/>}></Route>
-        <Route path='/appliedjobs' element={<AppliedJobs/>}></Route>
+        <Route path='/appliedjobs' element={ <AppliedJobs/> } ></Route>
+        {/* <Route path='/appliedjobs' element={isAuthorised ? <AppliedJobs/> : <Navigate to={'/login'}/>} ></Route> */}
+
         <Route path='/viewjobs/:id/applyAjob' element={<ApplyJobs/>}></Route>
         <Route path='/savedjobs' element={<SavedJobs/>}></Route>
         <Route path='/userdashboard' element={<UserDashboard/>}></Route>
+        <Route path='/userProfile' element={<UserProfile/>}></Route>
 
         {/* admin */}
         <Route path='/dashboard' element={<Dashboard/>}></Route>

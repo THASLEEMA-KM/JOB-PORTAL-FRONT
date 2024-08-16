@@ -14,6 +14,13 @@ export const loginAPI = async(reqBody)=>
 //     {
 //         return await commonAPI("POST",`${SERVER_URL}/adminlogin`,reqBody)
 //     }
+
+// get user details 
+export const getUserDetailsAPI = async(reqHeader) =>{
+    return await commonAPI("GET",`${SERVER_URL}/userProfile`,"",reqHeader)
+}
+
+
 export const postjobAPI = async(reqBody,reqHeader)=>
     {
         return await commonAPI("POST",`${SERVER_URL}/postjob`,reqBody,reqHeader)

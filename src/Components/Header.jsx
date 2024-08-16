@@ -64,7 +64,7 @@ const Header = ({insideUserDashboard}) => {
                 <Nav className='ms-auto jusify-content-between'>
                 {
                     insideUserDashboard ?
-                    <Link className='btn btn-primary text-black rounded-5 mx-lg-2 my-2 my-lg-0'>
+                    <Link to={'/userprofile'} className='btn btn-primary text-black rounded-5 mx-lg-2 my-2 my-lg-0'>
                       <i className="fa-solid fa-user"></i>
                   </Link>
                   :
