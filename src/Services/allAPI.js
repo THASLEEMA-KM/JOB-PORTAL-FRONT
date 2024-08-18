@@ -20,6 +20,10 @@ export const getUserDetailsAPI = async(reqHeader) =>{
     return await commonAPI("GET",`${SERVER_URL}/userProfile`,"",reqHeader)
 }
 
+//edit profile
+export const editProfileAPI = async(reqBody,reqHeader)=>{
+    return await commonAPI("PUT",`${SERVER_URL}/userProfile/edit`,reqBody,reqHeader)
+}
 
 export const postjobAPI = async(reqBody,reqHeader)=>
     {

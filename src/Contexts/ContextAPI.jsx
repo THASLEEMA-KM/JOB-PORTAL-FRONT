@@ -5,6 +5,8 @@ export const saveReponseContext = createContext()
 export const applyReponseContext = createContext()
 export const deleteAppliedJobResponseContext = createContext()
 export const updateJobStatusResponseContext = createContext()
+export const updateProfileResponseContext = createContext()
+
 function ContextAPI({children}) {
   const [editJobResponse,setEditJobResponse] = useState("")
     const [deletePostedJobResponse,setDeletePostedJobResponse] = useState("")
@@ -12,7 +14,7 @@ function ContextAPI({children}) {
     const [applyResponse,setApplyResponse] = useState("")
     const [deleteAppliedJobResponse,setDeleteAppliedJobResponse] = useState("")
     const [updatejobStatus,setUpdateJobStatus] = useState("")
-
+    const [updateProfileResponse,setUpdateProfileResponse] = useState("")
 
   return (
     <>
@@ -22,7 +24,9 @@ function ContextAPI({children}) {
                 <applyReponseContext.Provider value={{applyResponse,setApplyResponse}}>
                   <deleteAppliedJobResponseContext.Provider value={{deleteAppliedJobResponse,setDeleteAppliedJobResponse}}>
                     <editJobResponseContext.Provider value={{editJobResponse,setEditJobResponse}}>
-                      {children}
+                      <updateProfileResponseContext.Provider value={{updateProfileResponse,setUpdateProfileResponse}}>
+                        {children}
+                      </updateProfileResponseContext.Provider>
                     </editJobResponseContext.Provider>
                   </deleteAppliedJobResponseContext.Provider >
                 </applyReponseContext.Provider>
