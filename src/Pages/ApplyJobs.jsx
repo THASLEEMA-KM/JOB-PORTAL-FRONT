@@ -7,10 +7,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { applyJobAPI } from '../Services/allAPI';
 import SERVER_URL from '../Services/serverURL';
-import { applyReponseContext } from '../Contexts/ContextAPI';
+import { applyReponseContext, updateProfileResponseContext } from '../Contexts/ContextAPI';
 
 function ApplyJobs() {
   const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
+  const {updateProfileResponse,setUpdateProfileResponse} = useContext(updateProfileResponseContext)
 
 const navigate = useNavigate()
   const {id} = useParams()
@@ -121,7 +122,15 @@ const navigate = useNavigate()
       }
     
   }
-
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    
+    if (file && file.type === 'application/pdf') {
+        setAppliedJobs({...appliedJobs, resumeFile: file});
+    } else {
+        alert('Please upload a PDF file.');
+    }
+};
   return (
     <>
         <Header insideUserDashboard={true}/>
@@ -162,11 +171,29 @@ const navigate = useNavigate()
                 value={appliedJobs.mobile}
                 onChange={(e)=>setAppliedJobs({...appliedJobs,mobile:e.target.value})}/>
               </FloatingLabel>
-              
+
+              {/* {appliedJobs?.resumeFile ? (
+            <div className="mb-3">
+                <label>Uploaded Resume:</label>
+                <a 
+                    href={`${SERVER_URL}/uploads/${appliedJobs?.resumeFile}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn btn-link"
+                >
+                    View/Download Resume
+                </a>
+            </div>
+        ) : (
+            <p>No resume uploaded.</p>
+        )} */}
               <FloatingLabel controlId="floating" label="Upload CV">
                 <Form.Control type="file" placeholder="Upload CV" 
                 // value={`${SERVER_URL}/uploads/${appliedJobs.resumeFile}`}
-                onChange={(e)=>setAppliedJobs({...appliedJobs,resumeFile:e.target.files[0]})}/>
+                accept=".pdf" 
+                onChange={(e) => handleFileChange(e)}
+                // onChange={(e)=>setAppliedJobs({...appliedJobs,resumeFile:e.target.files[0]})}
+                />
               </FloatingLabel>
 
               <div className="text-center my-3">

@@ -105,7 +105,12 @@ function AppliedJobs() {
                                 <td className={getStatusClassName(items?.status)}>{items?.status}</td>
                                 {/* <td className="items.status=='Approved'?'text-success'">{items?.status}</td> */}
 
-                                <td>{items?.resumeFile}</td>
+                                {/* <td>{items?.resumeFile}</td> */}
+                                <td>
+                                 <a style={{textDecoration:"none"}}  href={items?.resumeFile} download target="_blank" rel="noopener noreferrer">
+            View CV
+          </a>
+                                 </td>
 
                                 {/* <td>edrtfr</td> */}
                                 <td>

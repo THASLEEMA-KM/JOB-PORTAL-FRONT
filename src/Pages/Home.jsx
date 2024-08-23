@@ -1,11 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import homeimage from '../assets/homeimg1.png'
 import './home.css'
 import Header from '../Components/Header';
+import { viewAllJobAPI } from '../Services/allAPI';
+import { Link } from 'react-router-dom';
+// import ViewJob from './ViewJob';
+
 const Home = () => {
+  const [searchKey,setSearchKey] = useState("")
+  const [searchedjobs,setSearchedJobs] = useState([])
+  const [searchPerformed, setSearchPerformed] = useState(false)
+
+
+  const getsearchedJobs = async()=>{
+    try {
+      const result = await viewAllJobAPI()
+      if (result.status === 200) {
+        // Filter jobs based on searchKey
+        const filteredJobs = result.data.filter(job => 
+          job.title.toLowerCase().includes(searchKey.toLowerCase())
+        )
+        setSearchedJobs(filteredJobs)
+        setSearchPerformed(true)
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const handleSearch=()=>{
+    if(searchKey==""){
+      alert("Please enter any category name")
+    }
+    else{
+      getsearchedJobs()
+    }
+  }
+  useEffect(()=>{
+    setSearchPerformed(false)
+  },[searchKey])
   return (
    <>
    <Header/>
@@ -24,8 +60,9 @@ const Home = () => {
                       aria-label="Recipient's username"
                       aria-describedby="basic-addon2"
                       className='rounded bg-light w-50 p-2'
+                      onChange={e=>setSearchKey(e.target.value)}
                     />
-                    <Button variant="primary" id="button-addon2" className='rounded ms-3'>
+                    <Button variant="primary" id="button-addon2" className='rounded ms-3' onClick={handleSearch}>
                       Search
                     </Button>
                   </InputGroup>
@@ -41,6 +78,64 @@ const Home = () => {
             <img className='img-fluid' src={homeimage} alt="" />
           </div>
        </div>
+       {/* to display searched jobs */}
+
+       {
+        searchPerformed && searchedjobs.length > 0 && (
+          <div className="mt-2 container">
+            <h3>Search Results</h3>
+            <div className="row">
+              {searchedjobs.map(job => (
+                <div key={job.id} className="col-lg-4 mb-3">
+                  <div className="card p-3">
+                    <h5>{job.title}</h5>
+                    <p>{job.description}</p>
+                    <Link to={`/viewjobs/${job._id}`}  variant="primary">view</Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      //   :
+      //   <div className="mt-3 container">
+      //   <h5>No jobs found matching your search criteria.</h5>
+      // </div>
+      }
+      {
+        searchPerformed && searchedjobs.length === 0 && (
+          <div className="mt-3 container">
+            <h5 className='text-danger text-center fw-bolder'>No jobs found matching your search criteria.</h5>
+          </div>
+        )
+      }
+       {/* {
+        searchedjobs.length > 0 &&
+        <div className="mt-3 container">
+          <h3>Search Results</h3>
+          <div className="row">
+            {searchedjobs.map(job => (
+              <div key={job.id} className="col-lg-4 mb-3">
+                <div className="card p-3">
+                  <h5>{job.title}</h5>
+                  <p>{job.description}</p>
+                  <Button variant="primary">Apply</Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+       } */}
+       {/* {
+        searchedjobs.length>0 &&
+        <div className="d-flex mt-3 justify-content-between">
+            <ViewJob jobs={searchedjobs}/>
+       </div>
+      //  :
+      //  <div>
+      //   no jobs found
+      //  </div>
+       } */}
       </div>
    </>
   )
