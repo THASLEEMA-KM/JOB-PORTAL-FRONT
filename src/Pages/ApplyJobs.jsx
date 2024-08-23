@@ -84,7 +84,9 @@ const navigate = useNavigate()
                     mobile:"",
                     resumeFile:null
                   })
-                  navigate('/viewjobs')
+                  setTimeout(()=>{
+                    navigate('/viewjobs')
+                  },3000)
               }else{
                 // toast.warning("job already applied")
                   toast.warning(result.response.data)

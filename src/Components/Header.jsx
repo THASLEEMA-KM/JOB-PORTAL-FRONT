@@ -21,7 +21,7 @@ const Header = ({insideUserDashboard}) => {
   const handlehome =()=>{
     navigate('/')
   }
-  const handleviejob =()=>{
+  const handleviewjob =()=>{
     navigate('/viewjobs')
   }
   const handleAppliedjob = ()=>{
@@ -29,8 +29,12 @@ const Header = ({insideUserDashboard}) => {
       navigate('/appliedjobs')
     }
     else{
+
       toast.warning("Please login first")
-      navigate('/login')
+      setTimeout(()=>{
+        navigate('/login')
+      },3000)
+      
     }
   }
   const handleSavedjob = ()=>{
@@ -39,8 +43,9 @@ const Header = ({insideUserDashboard}) => {
     }
     else{
       toast.warning("Please login first")
-      navigate('/login')
-    }
+      setTimeout(()=>{
+        navigate('/login')
+      },3000)    }
   }
 
   return (
@@ -57,13 +62,13 @@ const Header = ({insideUserDashboard}) => {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
                   <Nav.Link   className='text-primary fw-bolder'><button onClick={handlehome} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >HOME</button></Nav.Link>
-                  <Nav.Link className='text-primary fw-bolder'><button onClick={handleviejob} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >VIEW JOBS</button></Nav.Link>
+                  <Nav.Link className='text-primary fw-bolder'><button onClick={handleviewjob} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >VIEW JOBS</button></Nav.Link>
                   <Nav.Link  className='text-primary fw-bolder'><button className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} onClick={handleAppliedjob} > APPLIED JOBS</button></Nav.Link>
                   <Nav.Link className='text-primary fw-bolder'><button className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} onClick={handleSavedjob} >SAVED JOBS</button></Nav.Link>
                 </Nav>
                 <Nav className='ms-auto jusify-content-between'>
                 {
-                    insideUserDashboard ?
+                    insideUserDashboard && token ?
                     <Link to={'/userprofile'} className='btn btn-primary text-black rounded-5 mx-lg-2 my-2 my-lg-0'>
                       <i className="fa-solid fa-user"></i>
                   </Link>
@@ -73,7 +78,7 @@ const Header = ({insideUserDashboard}) => {
               </Link>
                   }
                   {
-                    insideUserDashboard ?
+                    insideUserDashboard && token ?
                     <button onClick={handleLogout} className='btn btn-info text-black rounded-5 mx-lg-2 my-2 my-lg-0' >
                   <i className="fa-solid fa-arrow-right"></i>
                   </button>

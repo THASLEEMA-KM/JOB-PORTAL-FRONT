@@ -1,11 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { loginAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { tokenAuthContext } from '../Contexts/AuthContext';
+
 const Login = () => {
+  const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
 
   const [userData,setUserData] = useState({
     email:"",
@@ -94,10 +97,14 @@ const navigate = useNavigate()
             {
               sessionStorage.setItem("admin",JSON.stringify(result.data.admin))
               sessionStorage.setItem("token",result.data.token)
+              setIsAuthorised(true)
               setUserData({
                 email:"",
                 password:""})
-                navigate('/dashboard')
+                toast.success("Login Successfull, Welcome Admin!")
+                setTimeout(()=>{
+                  navigate('/dashboard')
+                },3000)
             }
           else
           {
@@ -116,11 +123,16 @@ const navigate = useNavigate()
         if(result.status==200){
               sessionStorage.setItem("user",JSON.stringify(result.data.user))
               sessionStorage.setItem("token",result.data.token)
+              setIsAuthorised(true)
               setUserData({
                 email:"",
                 password:""})
-                // toast.warning(`Welcome ${result.data.user.username}...`)
-                navigate('/userdashboard')
+                toast.success(`Welcome ${result.data.user.username}...`)
+                // toast.success("Login Successfull")
+                setTimeout(()=>{
+                  navigate('/userdashboard')
+                },3000)
+                
         }
         else{
           if(result.response.status==404)

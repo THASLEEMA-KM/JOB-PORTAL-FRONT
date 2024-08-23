@@ -5,6 +5,8 @@ import { editAJobAPI, viewAJobAPI } from '../Services/allAPI';
 import Modal from 'react-bootstrap/Modal';
 import { Button, Form } from 'react-bootstrap';
 import { editJobResponseContext } from '../Contexts/ContextAPI';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ViewAJobAdmin() {
   const {editJobResponse,setEditJobResponse} = useContext(editJobResponseContext)
@@ -20,7 +22,10 @@ function ViewAJobAdmin() {
         const result = await viewAJobAPI(id)
         console.log(result);
         if(result.status==200){
-            setJobDetails(result.data)
+          const job = result.data
+          job.deadline = new Date(job.deadline).toLocaleDateString(); 
+            setJobDetails(job)
+            
         }
     } catch (error) {
         console.log(error);
@@ -41,7 +46,7 @@ function ViewAJobAdmin() {
       experience:jobDetails.experience,
       vacancy:jobDetails.vacancy
     })
-    console.log(updatedJob);
+    // console.log(updatedJob);
     
     const handleShow = async (id) => {
       setShow(true);
@@ -94,10 +99,12 @@ function ViewAJobAdmin() {
             
             if(result.status==200){
               setEditJobResponse(result)
-              alert("updation success")
+              toast.success("Job Updation success")
               // setEditJobResponse(result)
               handleClose()
-              // navigate('/viewJobsAdmin')
+              setTimeout(()=>{
+              navigate('/viewJobsAdmin')
+              },3000)
             }
             else{
               console.log(result.response);              
@@ -109,7 +116,7 @@ function ViewAJobAdmin() {
         }
       }
       else{
-        alert("Please fillthe form completely!!")
+        toast.error("Please fill the form completely!!")
       }
     }
     useEffect(()=>{
@@ -133,6 +140,7 @@ function ViewAJobAdmin() {
               <h3>Deadline : {jobDetails?.deadline}</h3>
               <h3>Experience : {jobDetails?.experience}</h3>
               <h3>Vacancies : {jobDetails?.vacancy}</h3>
+              
               <div className="d-flex mt-5 justify-content-evenly">
                 <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning">Edit</button>
                 <button className="btn btn-outline-primary"><Link style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
@@ -263,7 +271,7 @@ function ViewAJobAdmin() {
               <Button onClick={handleUpdateJob} variant="primary">Update</Button>
             </Modal.Footer>
           </Modal>
-
+          <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
       </div>
     </>
   )

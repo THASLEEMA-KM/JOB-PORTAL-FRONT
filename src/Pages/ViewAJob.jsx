@@ -24,7 +24,10 @@ function ViewAJob() {
       const result = await viewAJobAPI(id)
       console.log(result);
       if(result.status==200){
-          setJobDetails(result.data)
+        const job = result.data
+          job.deadline = new Date(job.deadline).toLocaleDateString(); 
+            setJobDetails(job)
+          // setJobDetails(result.data)
           setApplyResponse(result.data)
       }
   } catch (error) {
@@ -40,7 +43,9 @@ function ViewAJob() {
     }
     else{
       toast.info("Please login first to apply job")
-      navigate('/login')
+      setTimeout(()=>{
+        navigate('/login')
+      },3000)
 
     }
   }
@@ -74,7 +79,9 @@ function ViewAJob() {
     }
     else{
       toast.info("Please login first to apply job")
-      navigate('/login')
+      setTimeout(()=>{
+        navigate('/login')
+      },3000)
 
     }
   }

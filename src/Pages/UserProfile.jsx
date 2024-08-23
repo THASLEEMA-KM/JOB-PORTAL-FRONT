@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import SERVER_URL from '../Services/serverURL';
 import { updateProfileResponseContext } from '../Contexts/ContextAPI';
 import userPic from '../assets/profilePic.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function UserProfile() {
 
     const [show, setShow] = useState(false);
@@ -93,14 +95,14 @@ function UserProfile() {
                   try {
                     const result = await editProfileAPI(reqBody,reqHeader)
                     if(result.status==200){
-                        alert("profile updated successfully")
+                        toast.success("profile updated successfully")
                         setUpdatedProfile(result.data)
                         setUpdateProfileResponse(result)
                         handleClose()
                     }
                     else
                     {
-                        alert("updation failed")
+                        toast.error("updation failed")
                     }
 
                   } catch (error) {
@@ -308,6 +310,8 @@ function UserProfile() {
       </div>
         </Offcanvas.Body>
       </Offcanvas>
+      <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
+
     </>
   )
 }
