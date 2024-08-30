@@ -117,7 +117,7 @@ console.log(allApplications);
     },[applyResponse,deleteAppliedJobResponse,updateJobStatus])
 
   return (
-    <div style={{marginTop:"150px"}}>
+    <div style={{marginTop:"150px",height:"100vh"}}>
         <AdminHeader insideDashboard={true}/>
         <h1 className="my-3 text-center">All Applicants</h1>
         <p className='text-center'>Total Count : {allApplications?.length}</p>

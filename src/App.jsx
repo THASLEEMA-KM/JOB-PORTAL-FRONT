@@ -40,19 +40,19 @@ const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
         <Route path='/viewjobs' element={<ViewJob/>}></Route>
         <Route path='/viewjobs/:id' element={<ViewAJob/>}></Route>
         {/* <Route path='/appliedjobs' element={ <AppliedJobs/> } ></Route> */}
-        <Route path='/appliedjobs' element={isAuthorised ? <AppliedJobs/> : <Navigate to={'/login'}/> } ></Route>
+        <Route path='/appliedjobs' element={isAuthorised && <AppliedJobs/>  } ></Route>
 
-        <Route path='/viewjobs/:id/applyAjob' element={isAuthorised ? <ApplyJobs/> : <Navigate to={'/login'}/> }></Route>
-        <Route path='/savedjobs' element={isAuthorised ? <SavedJobs/> : <Navigate to={'/login'}/> }></Route>
-        <Route path='/userdashboard' element={isAuthorised ? <UserDashboard/> : <Navigate to={'/login'}/>}></Route>
-        <Route path='/userProfile' element={isAuthorised ? <UserProfile/> : <Navigate to={'/login'}/>}></Route>
+        <Route path='/viewjobs/:id/applyAjob' element={isAuthorised && <ApplyJobs/> }></Route>
+        <Route path='/savedjobs' element={isAuthorised && <SavedJobs/>  }></Route>
+        <Route path='/userdashboard' element={isAuthorised && <UserDashboard/>}></Route>
+        <Route path='/userProfile' element={isAuthorised && <UserProfile/> }></Route>
 
         {/* admin */}
-        <Route path='/dashboard' element={isAuthorised ? <Dashboard/> : <Navigate to={'/login'}/>}></Route>
-        <Route path='/postjobs' element={isAuthorised ? <PostJobs/> : <Navigate to={'/login'}/>} ></Route>
-        <Route path='/viewJobsAdmin' element={isAuthorised ? <ViewJobAdmin/> : <Navigate to={'/login'}/>}></Route>
-        <Route path='/viewJobsAdmin/:id' element={isAuthorised ? <ViewAJobAdmin/> : <Navigate to={'/login'}/>}></Route>
-        <Route path='/viewJobsAdmin/:id/viewapplications' element={isAuthorised ? <ViewApplications/> : <Navigate to={'/login'}/>}></Route>
+        <Route path='/dashboard' element={isAuthorised && <Dashboard/> }></Route>
+        <Route path='/postjobs' element={isAuthorised && <PostJobs/> } ></Route>
+        <Route path='/viewJobsAdmin' element={isAuthorised && <ViewJobAdmin/> }></Route>
+        <Route path='/viewJobsAdmin/:id' element={isAuthorised && <ViewAJobAdmin/> }></Route>
+        <Route path='/viewJobsAdmin/:id/viewapplications' element={isAuthorised && <ViewApplications/> }></Route>
 
       </Routes>
       <Footer/>

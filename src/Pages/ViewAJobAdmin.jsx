@@ -126,7 +126,7 @@ function ViewAJobAdmin() {
   return (
     <>
         <AdminHeader insideDashboard={true}/>
-      <div style={{marginTop:"150px"}} className="row container-fluid justify-content-center align-items-center d-flex">
+      <div style={{marginTop:"150px",height:"100vh"}} className="row container-fluid justify-content-center align-items-center d-flex">
           <div className="col-lg-2"></div>
           <div className="col-lg-8 p-5 border rounded-5 shadow">
             <h1 className='text-center'>{jobDetails?.title}</h1>
@@ -136,9 +136,9 @@ function ViewAJobAdmin() {
               <h3>Email : {jobDetails?.email}</h3>
               <h3>Description : {jobDetails?.description}</h3>
               <h3>Job type : {jobDetails?.jobType}</h3>
-              <h3>Salary : {jobDetails?.salary}</h3>
+              <h3>Salary : {jobDetails?.salary}/-</h3>
               <h3>Deadline : {jobDetails?.deadline}</h3>
-              <h3>Experience : {jobDetails?.experience}</h3>
+              <h3>Experience : {jobDetails?.experience} Year(s)</h3>
               <h3>Vacancies : {jobDetails?.vacancy}</h3>
               
               <div className="d-flex mt-5 justify-content-evenly">

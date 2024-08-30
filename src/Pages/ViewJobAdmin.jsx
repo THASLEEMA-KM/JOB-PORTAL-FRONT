@@ -23,7 +23,11 @@ const ViewJobAdmin = () => {
     try {
       const result = await viewAllJobAPI()
       if(result.status==200){
-        setAllJobs(result.data)
+        const jobs = result.data.map(job => ({
+          ...job,
+          deadline: new Date(job.deadline).toLocaleDateString(),
+        }));
+        setAllJobs(jobs)
       }
     } catch (error) {
       console.log(error);
@@ -71,7 +75,7 @@ if(token){
   return (
    <>
     <AdminHeader insideDashboard={true}/>
-      <div style={{marginTop:"180px"}}>
+      <div style={{marginTop:"180px",height:"100vh"}}>
       <div className=' align-items-center container-fluid justify-content-center'>
         {/* this is to be dublicated part */}
           <Row className='container-fluid  d-flex ' >

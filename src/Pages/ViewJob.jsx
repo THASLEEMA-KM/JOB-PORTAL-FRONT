@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import Header from '../Components/Header';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Pagination, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { viewAJobAPI, viewAllJobAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,6 +15,8 @@ const ViewJob = () => {
   const navigate = useNavigate()
   const [allJobs,setAllJobs] = useState([])
   console.log(allJobs);
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const jobsPerPage = 6; // Jobs to display per page
 
   useEffect(()=>{
     viewAllJobs()
@@ -25,12 +27,31 @@ const ViewJob = () => {
     try {
       const result = await viewAllJobAPI()
       if(result.status==200){
-        setAllJobs(result.data)
+        const jobs = result.data.map(job => ({
+          ...job,
+          deadline: new Date(job.deadline).toLocaleDateString(),
+        }));
+        setAllJobs(jobs);
+        // setAllJobs(result.data)
       }
     } catch (error) {
       console.log(error);
     }
   }
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = allJobs.slice(indexOfFirstJob, indexOfLastJob);
+
+  // Change page
+  const paginate = (pageNumber) =>{
+    if (
+      pageNumber >= 1 &&
+      pageNumber <= Math.ceil(allJobs?.length / jobsPerPage)
+    ) {
+      setCurrentPage(pageNumber);
+    }
+    //  setCurrentPage(pageNumber);
+    }
 
   // const handleJobDetails = async ()=>{
   //   if(sessionStorage.getItem("token")){
@@ -53,7 +74,7 @@ const ViewJob = () => {
   return (
    <>
    <Header insideUserDashboard={true}/>
-      <div style={{marginTop:"180px"}}>
+      <div style={{marginTop:"180px",height:"100vh"}}>
       <div className=' align-items-center container-fluid justify-content-center'>
         {/* this is to be dublicated part */}
           <Row className='container-fluid  d-flex ' >
@@ -79,6 +100,18 @@ const ViewJob = () => {
            
             }
           </Row>   
+          <div className='d-flex justify-content-center mt-3'>
+            <Pagination>
+            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+              {Array.from({ length: Math.ceil(allJobs.length / jobsPerPage) }, (_, i) => (
+                <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+
+            </Pagination>
+          </div>
       </div>
       </div>
       <ToastContainer theme='colored' autoClose={3000} position='top-center'/>

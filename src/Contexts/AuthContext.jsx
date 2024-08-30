@@ -10,7 +10,7 @@ const AuthContext = ({children}) => {
         }else{
             setIsAuthorised(false)
         }
-    },[isAuthorised])
+    },[])
 
   return (
     <>

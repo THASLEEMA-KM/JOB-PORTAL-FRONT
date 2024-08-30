@@ -163,7 +163,7 @@ function UserProfile() {
     return (
     <>
         <Header insideUserDashboard={true}/>
-        <div style={{marginTop:"180px"}} className="justify-content-center align-items-center container-fluid">
+        <div style={{marginTop:"180px",height:"100vh"}} className="justify-content-center align-items-center container-fluid">
             <h1 className="text-center text-primary my-3">WELCOME<span style={{color:"red", letterSpacing:'5px', textTransform:'uppercase'}}> {userDetails.username} !</span></h1>
             <div className="d-flex justify-content-center row mt-5">
                 <div className="col-lg-3"></div>

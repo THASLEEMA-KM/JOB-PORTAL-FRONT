@@ -53,10 +53,11 @@ const Header = ({insideUserDashboard}) => {
       <Navbar expand="lg" className="bg-white navbar  mb-3 " fixed="top">
             <Container className='justify-content-between align-items-center'>
               <Navbar.Brand className='fw-bolder text-info'>
-              <Link to={'/'} style={{textDecoration:'none'}}>
+              { insideUserDashboard &&
+                <Link to={'/userdashboard'} style={{textDecoration:'none'}}>
                 <i className="fa-solid fa-cube text-info fs-2 me-3"></i>
                   JOB PORTAL
-              </Link>
+              </Link>}
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">

@@ -23,7 +23,12 @@ const getSavedJobs = async()=>{
     const result = await getSavedJobsAPI(reqHeader)
     console.log(result);
     if(result.status==200){
-      setSavedJobs(result.data)
+      const jobs = result.data.map(job => ({
+        ...job,
+        deadline: new Date(job.deadline).toLocaleDateString(),
+      }));
+      setSavedJobs(jobs);
+      // setSavedJobs(result.data)
     }
     
   } catch (error) {
@@ -63,7 +68,7 @@ useEffect(()=>{
   return (
     <div>
              <Header  insideUserDashboard={true}/>   
-     <div style={{marginTop:"180px"}}>
+     <div style={{marginTop:"180px",height:"100vh"}}>
       <div className=' align-items-center container-fluid'>
         {/* this is to be dublicated part */}
           <Row className='container-fluid justify-content-center' >

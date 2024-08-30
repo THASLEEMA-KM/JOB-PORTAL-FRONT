@@ -73,7 +73,7 @@ function AppliedJobs() {
   return (
     <>
      <Header insideUserDashboard={true}/>   
-     <div style={{marginTop:"150px"}}>
+     <div style={{marginTop:"150px",height:"100vh"}}>
 
         <h1 className="my-3 text-center">All Applications</h1>
         <p className='text-center'>Total Count :{userAppliedJobs?.length}</p>

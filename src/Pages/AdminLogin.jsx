@@ -43,7 +43,7 @@ const navigate = useNavigate()
 
   return (
     <>
-    <div style={{marginTop:"100px"}}>
+    <div style={{marginTop:"100px",}}>
     <h1 className="text-center text-warning fw-bolder">LOGIN HERE</h1>
      <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
      <div className="col-lg-3"></div>

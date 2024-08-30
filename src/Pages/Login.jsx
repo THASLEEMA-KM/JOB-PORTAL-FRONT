@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { tokenAuthContext } from '../Contexts/AuthContext';
 
 const Login = () => {
-  const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
+  const {setIsAuthorised} = useContext(tokenAuthContext)
 
   const [userData,setUserData] = useState({
     email:"",
@@ -151,7 +151,7 @@ const navigate = useNavigate()
 
   return (
     <>
-    <div style={{marginTop:"100px"}}>
+    <div style={{marginTop:"100px",height:"100vh"}}>
     <h1 className="text-center text-warning fw-bolder">LOGIN HERE</h1>
      <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
      <div className="col-lg-3"></div>
