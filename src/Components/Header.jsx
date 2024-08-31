@@ -19,7 +19,12 @@ const Header = ({insideUserDashboard}) => {
   const userId = sessionStorage.getItem("user")
 
   const handlehome =()=>{
-    navigate('/')
+    if(token && userId){
+      navigate('/userdashboard')
+    }
+    else{
+      navigate('/')
+    }
   }
   const handleviewjob =()=>{
     navigate('/viewjobs')
@@ -53,11 +58,17 @@ const Header = ({insideUserDashboard}) => {
       <Navbar expand="lg" className="bg-white navbar  mb-3 " fixed="top">
             <Container className='justify-content-between align-items-center'>
               <Navbar.Brand className='fw-bolder text-info'>
-              { insideUserDashboard &&
+              { insideUserDashboard && token ?
                 <Link to={'/userdashboard'} style={{textDecoration:'none'}}>
                 <i className="fa-solid fa-cube text-info fs-2 me-3"></i>
                   JOB PORTAL
-              </Link>}
+              </Link>
+            :
+            <Link to={'/'} style={{textDecoration:'none'}}>
+                <i className="fa-solid fa-cube text-info fs-2 me-3"></i>
+                  JOB PORTAL
+              </Link>  
+            }
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">

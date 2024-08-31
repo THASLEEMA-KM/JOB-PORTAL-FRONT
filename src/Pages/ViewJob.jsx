@@ -6,21 +6,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import { viewAJobAPI, viewAllJobAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { editJobResponseContext } from '../Contexts/ContextAPI';
+import { addjobResponseContext, editJobResponseContext } from '../Contexts/ContextAPI';
 
 const ViewJob = () => {
 
   const {editJobResponse,setEditJobResponse} = useContext(editJobResponseContext)
-
+  const {addJobResponse,setAddJobResponse} = useContext(addjobResponseContext)
   const navigate = useNavigate()
   const [allJobs,setAllJobs] = useState([])
   console.log(allJobs);
   const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const jobsPerPage = 6; // Jobs to display per page
+  const jobsPerPage = 9; // Jobs to display per page
 
   useEffect(()=>{
     viewAllJobs()
-  },[editJobResponse])
+  },[addJobResponse,editJobResponse])
 
 
   const viewAllJobs = async()=>{
@@ -74,13 +74,14 @@ const ViewJob = () => {
   return (
    <>
    <Header insideUserDashboard={true}/>
-      <div style={{marginTop:"180px",height:"100vh"}}>
+      <div style={{marginTop:"180px",minHeight:"100vh"}}>
       <div className=' align-items-center container-fluid justify-content-center'>
+      <h1 className="text-center fw-bolder mt-3 mb-5 text-primary animate__animated animate__bounceIn">Find Your dream Jobs Here..!</h1>
         {/* this is to be dublicated part */}
-          <Row className='container-fluid  d-flex ' >
+          <Row className='container-fluid  d-flex justify-content-center' >
            {
-            allJobs.length>0?
-            allJobs.map(jobs=>(
+            currentJobs.length>0?
+            currentJobs.map(jobs=>(
               <Col key={jobs?._id} sm={12} md={6} lg={4}>
             <Card className='ms-2 mt-3' style={{ width: '20rem' }}>
                 <Card.Body style={{textAlign:"center"}}>
@@ -100,7 +101,7 @@ const ViewJob = () => {
            
             }
           </Row>   
-          <div className='d-flex justify-content-center mt-3'>
+          <div className='d-flex justify-content-center my-5'>
             <Pagination>
             <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
               {Array.from({ length: Math.ceil(allJobs.length / jobsPerPage) }, (_, i) => (

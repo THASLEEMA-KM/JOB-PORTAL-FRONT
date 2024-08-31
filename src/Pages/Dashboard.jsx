@@ -3,9 +3,10 @@ import AdminHeader from '../Components/AdminHeader'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import homeimage from '../assets/homeimg1.png'
+import homegif from '../assets/homegif.gif'
 import './home.css'
 import { viewAllJobAPI } from '../Services/allAPI';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const [searchKey,setSearchKey] = useState("")
@@ -18,7 +19,9 @@ function Dashboard() {
       if (result.status === 200) {
         // Filter jobs based on searchKey
         const filteredJobs = result.data.filter(job => 
-          job.title.toLowerCase().includes(searchKey.toLowerCase())
+          job.title.toLowerCase().includes(searchKey.toLowerCase()) ||
+          job.category.toLowerCase().includes(searchKey.toLowerCase())
+
         )
         setSearchedJobs(filteredJobs)
         setSearchPerformed(true)
@@ -42,11 +45,11 @@ function Dashboard() {
   return (
     <>
         <AdminHeader insideDashboard={true}/>
-        <div style={{height:"100vh",marginTop:"150px"}} className='bg-white'>
+        <div style={{minHeight:"100vh",marginTop:"150px"}} className='bg-white'>
        <div className="row container-fluid justify-content-between align-items-center">
           <div className="col-lg-7 ">
             <h1 className='homehead text-dark '><strong>To Choose</strong> <br />
-            <span className='fw-bolder homehead'>Right Jobs.</span></h1>
+            <h1 className='fw-bolder homehead'>Right Jobs.</h1></h1>
               <div className='row mt-3 px-4'>
                 <div className="col-lg-2"></div>
                 
@@ -65,14 +68,14 @@ function Dashboard() {
                   </InputGroup>
                   <p className='text-black'>
                   <i className="fa-solid fa-bookmark mx-3 text-primary"></i>
-                    Suggested Tags : <span style={{color:"GrayText",fontSize:"17px"}}>Software/Marketing/UI-UX Developer...</span></p>
+                    Suggested Tags : <span style={{color:"GrayText",fontSize:"17px"}}>Software/Marketing/Developer...</span></p>
   
                 </div>
                 <div className="col-lg-2"></div>
               </div>
           </div>
           <div className="col-lg-5">
-            <img className='img-fluid' src={homeimage} alt="" />
+            <img className='img-fluid' src={homegif} alt="homegif" />
           </div>
        </div>
               {/* to display searched jobs */}
@@ -85,8 +88,8 @@ function Dashboard() {
               {searchedjobs.map(job => (
                 <div key={job.id} className="col-lg-4 mb-3">
                   <div className="card p-3">
-                    <h5>{job.title}</h5>
-                    <p>{job.description}</p>
+                  <h5 className='text-center'>{job.title}</h5>
+                  <p>{job.description.slice(0,80)}...</p>
                     <Link to={`/viewjobs/${job._id}`}  variant="primary">view</Link>
                   </div>
                 </div>

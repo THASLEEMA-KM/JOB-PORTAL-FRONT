@@ -127,7 +127,7 @@ const navigate = useNavigate()
               setUserData({
                 email:"",
                 password:""})
-                toast.success(`Welcome ${result.data.user.username}...`)
+                toast.success(`Welcome ${result.data.user.username}..!`)
                 // toast.success("Login Successfull")
                 setTimeout(()=>{
                   navigate('/userdashboard')

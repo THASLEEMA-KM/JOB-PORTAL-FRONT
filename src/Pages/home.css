@@ -1,7 +1,11 @@
 .homehead{
     font-size: 80px;
-    font-family: monospace;
+    font-family: "Lora", serif;
     font-weight: bolder;
     color: blueviolet;
     text-align: center;
+}
+
+.searchbtn:hover{
+    border-radius: 40%;
 }

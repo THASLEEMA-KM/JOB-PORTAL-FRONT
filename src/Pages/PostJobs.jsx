@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import AdminHeader from '../Components/AdminHeader'
 import Form from 'react-bootstrap/Form';
 import { postjobAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addjobResponseContext } from '../Contexts/ContextAPI';
 
 function PostJobs() {
+    const {addJobResponse,setAddJobResponse} = useContext(addjobResponseContext)
 
     const [postJob,setPostJob]= useState({
         title:"",salary:"",email:"",company:"",location:"",description:"",category:"",jobType:"",experience:"",vacancy:"",deadline:""
@@ -38,6 +40,7 @@ function PostJobs() {
                         setPostJob({
                             title:"",salary:"",email:"",company:"",location:"",description:"",category:"",jobType:"",experience:"",vacancy:"",deadline:""
                         })
+                        setAddJobResponse(result)
                     }else{
                         alert(result.response.data)
                         console.log(result.response.data);
