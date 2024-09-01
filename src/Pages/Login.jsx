@@ -155,7 +155,7 @@ const navigate = useNavigate()
     <h1 className="text-center text-warning fw-bolder">LOGIN HERE</h1>
      <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
      <div className="col-lg-3"></div>
-        <div className='col-lg-6  p-5  shadow rounded w-50'>
+        <div className='col-lg-6  p-5  shadow rounded ' style={{width:"auto"}}>
               <div className='row d-flex justify-content-between'>
                 <div className="col-lg-6">
                 <FloatingLabel

@@ -138,7 +138,7 @@ function ViewAJobAdmin() {
         <AdminHeader insideDashboard={true}/>
       <div style={{marginTop:"150px",minHeight:"100vh"}} className="row container-fluid justify-content-center align-items-center d-flex">
           <div className="col-lg-2"></div>
-          <div className="col-lg-8 p-5 border rounded-5 shadow">
+          <div className="col-lg-8 p-5 border rounded-5 shadow" style={{width:"auto"}}>
             <h1 className='text-center'>{jobDetails?.title}</h1>
               <h3>Company Name:{jobDetails?.company}</h3>
               <h3>Location : {jobDetails?.location}</h3>

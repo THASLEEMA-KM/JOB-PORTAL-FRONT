@@ -69,7 +69,7 @@ const Register = () => {
         <h1 className="text-center fw-bolder text-primary">REGISTER HERE</h1>
         <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
           <div className="col-lg-3"></div>
-          <div className="col-lg-6 p-5  shadow rounded w-50">
+          <div className="col-lg-6 p-5  shadow rounded" style={{width:"auto"}}>
       <FloatingLabel
         controlId="floatingInputName"
         label="Your Name"
