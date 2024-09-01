@@ -60,7 +60,7 @@ const Header = ({insideUserDashboard}) => {
               <Navbar.Brand className='fw-bolder text-info'>
               { insideUserDashboard && token ?
                 <Link to={'/userdashboard'} style={{textDecoration:'none'}}>
-                <i className="fa-solid fa-cube text-info fs-2 me-3"></i>
+                <i className="fa-solid fa-cube text-info me-3"></i>
                   JOB PORTAL
               </Link>
             :

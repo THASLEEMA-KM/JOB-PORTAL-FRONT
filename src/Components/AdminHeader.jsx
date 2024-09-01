@@ -18,7 +18,7 @@ function AdminHeader({insideDashboard}) {
             <Container className='justify-content-between align-items-center'>
               <Navbar.Brand className='fw-bolder text-info'>
               <Link to={'/dashboard'} style={{textDecoration:'none'}}>
-                <i className="fa-solid fa-cube text-info fs-2 me-3"></i>
+                <i className="fa-solid fa-cube text-info  me-3"></i>
                   JOB PORTAL
               </Link>
               </Navbar.Brand>
