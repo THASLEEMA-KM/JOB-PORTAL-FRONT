@@ -31,6 +31,19 @@ function Dashboard() {
       console.log(error);
     }
   }
+  const [currentPage, setCurrentPage] = useState(1); 
+  const jobsPerPage = 6; 
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentsearchedJobs = searchedjobs.slice(indexOfFirstJob, indexOfLastJob);
+   const paginate = (pageNumber) =>{
+    if (
+      pageNumber >= 1 &&
+      pageNumber <= Math.ceil(searchedjobs?.length / jobsPerPage)
+    ) {
+      setCurrentPage(pageNumber);
+    }
+    }
   const handleSearch=()=>{
     if(searchKey==""){
       alert("Please enter any category name")
@@ -85,9 +98,9 @@ function Dashboard() {
           <div className="mt-2 container">
             <h3>Search Results</h3>
             <div className="row">
-              {searchedjobs.map(job => (
+              {currentsearchedJobs.map(job => (
                 <div key={job.id} className="col-lg-4 mb-3">
-                  <div className="card p-3">
+                  <div className="card p-3 h-100">
                   <h5 className='text-center'>{job.title}</h5>
                   <p>{job.description.slice(0,80)}...</p>
                     <Link to={`/viewjobs/${job._id}`}  variant="primary">view</Link>
@@ -95,9 +108,23 @@ function Dashboard() {
                 </div>
               ))}
             </div>
+            <div className='d-flex justify-content-center my-5'>
+            <Pagination>
+            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+              {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
+                <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+
+            </Pagination>
+          </div>
           </div>
         )
       
+
+
       }
       {
         searchPerformed && searchedjobs.length === 0 && (

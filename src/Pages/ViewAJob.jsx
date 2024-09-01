@@ -19,14 +19,24 @@ function ViewAJob() {
 
   console.log(jobDetails);
   const {id} = useParams()
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
   const getJobDetails = async(id)=>{
   try {
       const result = await viewAJobAPI(id)
       console.log(result);
       if(result.status==200){
-        const job = result.data
-          job.deadline = new Date(job.deadline).toLocaleDateString(); 
-            setJobDetails(job)
+        const formattedJobDetails = {
+          ...result.data,
+          deadline: formatDate(result.data.deadline)
+        }
+        setJobDetails(formattedJobDetails)
+        // const job = result.data
+        //   job.deadline = new Date(job.deadline).toLocaleDateString(); 
+        //     setJobDetails(job)
           // setJobDetails(result.data)
           setApplyResponse(result.data)
       }

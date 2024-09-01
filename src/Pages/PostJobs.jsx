@@ -5,10 +5,11 @@ import { postjobAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addjobResponseContext } from '../Contexts/ContextAPI';
+import { useNavigate } from 'react-router-dom';
 
 function PostJobs() {
     const {addJobResponse,setAddJobResponse} = useContext(addjobResponseContext)
-
+    const navigate = useNavigate()
     const [postJob,setPostJob]= useState({
         title:"",salary:"",email:"",company:"",location:"",description:"",category:"",jobType:"",experience:"",vacancy:"",deadline:""
     })
@@ -41,6 +42,9 @@ function PostJobs() {
                             title:"",salary:"",email:"",company:"",location:"",description:"",category:"",jobType:"",experience:"",vacancy:"",deadline:""
                         })
                         setAddJobResponse(result)
+                        setTimeout(()=>{
+                            navigate('/dashboard')
+                        },3000)
                     }else{
                         alert(result.response.data)
                         console.log(result.response.data);

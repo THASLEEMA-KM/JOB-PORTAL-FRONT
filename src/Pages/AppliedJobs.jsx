@@ -4,6 +4,7 @@ import { applyReponseContext, deleteAppliedJobResponseContext, updateJobStatusRe
 import { getAppliedJobsAPI, removeAppliedJobAPI } from '../Services/allAPI'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Pagination } from 'react-bootstrap';
 
 function AppliedJobs() {
 
@@ -66,6 +67,24 @@ function AppliedJobs() {
               return 'text-secondary'; // Default for unknown status
       }
   }
+
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const jobsPerPage = 10; // Jobs to display per page
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentAppliedJobs = userAppliedJobs.slice(indexOfFirstJob, indexOfLastJob);
+
+  // Change page
+  const paginate = (pageNumber) =>{
+    if (
+      pageNumber >= 1 &&
+      pageNumber <= Math.ceil(userAppliedJobs?.length / jobsPerPage)
+    ) {
+      setCurrentPage(pageNumber);
+    }
+    //  setCurrentPage(pageNumber);
+    }
+
     useEffect(()=>{
       getUserAppliedJobs()
   },[applyResponse,deleteAppliedJobResponse,updateJobStatus])
@@ -86,17 +105,17 @@ function AppliedJobs() {
                             <th>#</th>
                             <th>Job Name</th>
                             <th>User Name</th>
-                            <th>email</th>
-                            <th>status</th>
-                            <th>cv</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>CV</th>
                             {/* <th>action</th> */}
                             <th><i className="fa-solid fa-ellipsis"></i></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            userAppliedJobs?.length>0 ?
-                            userAppliedJobs?.map((items,index)=>(
+                            currentAppliedJobs?.length>0 &&
+                            currentAppliedJobs?.map((items,index)=>(
                                 <tr key={items?.id}>
                                 <td>{index+1}</td>
                                 <td>{items?.title}</td>
@@ -118,13 +137,34 @@ function AppliedJobs() {
                                 <i onClick={()=>handleDeleteAppliedJob(items?._id)} className="fa-solid fa-trash  text-danger"></i> 
                                 </td>
                                 </tr>
-                            )):
-                            <div>
-                                no applied jobs
-                            </div>
+                            ))
+                            // :
+                            // <div>
+                            //     no applied jobs
+                            // </div>
                             }
                     </tbody>
                 </table>
+                {
+                            currentAppliedJobs?.length==0 &&
+                        <div className='fw-bolder text-center text-danger'>
+                            NO APPLICATIONS YET!!!
+                        </div>
+                        }
+                {
+                  userAppliedJobs.length>10 &&
+                  <div className='d-flex justify-content-center my-5'>
+                  <Pagination>
+                  <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+                    {Array.from({ length: Math.ceil(userAppliedJobs.length / jobsPerPage) }, (_, i) => (
+                      <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                        {i + 1}
+                      </Pagination.Item>
+                    ))}
+                  <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+
+                  </Pagination>
+                </div>}
            </div>
            <div className="col"></div>
 

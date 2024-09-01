@@ -4,11 +4,11 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import homeimage from '../assets/homeimg1.png'
 import homegif from '../assets/homegif.gif'
-
 import './home.css'
 import Header from '../Components/Header';
 import { viewAllJobAPI } from '../Services/allAPI';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'react-bootstrap';
 // import ViewJob from './ViewJob';
 
 const Home = () => {
@@ -42,6 +42,21 @@ const Home = () => {
       getsearchedJobs()
     }
   }
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const jobsPerPage = 6; // Jobs to display per page
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentsearchedJobs = searchedjobs.slice(indexOfFirstJob, indexOfLastJob);
+   // Change page
+   const paginate = (pageNumber) =>{
+    if (
+      pageNumber >= 1 &&
+      pageNumber <= Math.ceil(searchedjobs?.length / jobsPerPage)
+    ) {
+      setCurrentPage(pageNumber);
+    }
+    //  setCurrentPage(pageNumber);
+    }
   useEffect(()=>{
     setSearchPerformed(false)
   },[searchKey])
@@ -89,9 +104,9 @@ const Home = () => {
           <div className="mt-2 container">
             <h3>Search Results</h3>
             <div className="row">
-              {searchedjobs.map(job => (
+              {currentsearchedJobs.map(job => (
                 <div key={job.id} className="col-lg-4 mb-3">
-                  <div className="card p-3">
+                  <div className="card p-3 h-100" >
                     <h5 className='text-center'>{job.title}</h5>
                     <p>{job.description.slice(0,80)}...</p>
                     <Link to={`/viewjobs/${job._id}`}  variant="primary">view</Link>
@@ -99,7 +114,19 @@ const Home = () => {
                 </div>
               ))}
             </div>
+            <div className='d-flex justify-content-center my-5'>
+            <Pagination>
+            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+              {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
+                <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+
+            </Pagination>
           </div>
+          </div> 
         )
       //   :
       //   <div className="mt-3 container">

@@ -5,6 +5,7 @@ import { getAllAppliedJobsAPI, removeAnApplicationAPI, updateJobStatusAPI } from
 import { useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Pagination } from 'react-bootstrap'
 
 function ViewApplications() {
 
@@ -27,7 +28,19 @@ console.log(allApplications);
 
     const {id} = useParams()
 
-
+    const [currentPage, setCurrentPage] = useState(1); 
+    const jobsPerPage = 6; 
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentapplications = allApplications.slice(indexOfFirstJob, indexOfLastJob);
+     const paginate = (pageNumber) =>{
+      if (
+        pageNumber >= 1 &&
+        pageNumber <= Math.ceil(searchedjobs?.length / jobsPerPage)
+      ) {
+        setCurrentPage(pageNumber);
+      }
+      }
 
     const getAllApplications = async()=>{
         const token = sessionStorage.getItem("token")
@@ -129,17 +142,17 @@ console.log(allApplications);
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>email</th>
-                            <th>status</th>
-                            <th>cv</th>
-                            <th>action</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>CV</th>
+                            <th>Action</th>
                             {/* <th><i className="fa-solid fa-ellipsis"></i></th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {
-                             allApplications?.length>0 ?
-                             allApplications?.map((items,index)=>(
+                             currentapplications?.length>0 &&
+                             currentapplications?.map((items,index)=>(
                                  <tr key={items?._id}>
 
                                  <td>{index+1}</td>                        
@@ -149,7 +162,7 @@ console.log(allApplications);
                                     {items?.status}
                                  </td>
                                  <td>
-                                 <a className='btn btn-outline-primary rounded-5' href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
+                                 <a style={{textDecoration:"none"}} href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
             Download CV
           </a>
                                  </td>
@@ -172,13 +185,35 @@ console.log(allApplications);
                                  </td> */}
                                  
                                  </tr>
-                             )):
-                             <div>
-                                 no applications
-                             </div>
+                             ))
+                            //  :
+                            //  <div>
+                            //      no applications
+                            //  </div>
                         }
                     </tbody>
                 </table>
+                {
+                            currentapplications?.length==0 &&
+                        <div className='fw-bolder text-center text-danger'>
+                            NO APPLICATIONS YET!!!
+                        </div>
+                        }
+                {
+                    currentapplications.length>10 &&
+                    <div className='d-flex justify-content-center my-5'>
+                    <Pagination>
+                    <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+                    {Array.from({ length: Math.ceil(allApplications.length / jobsPerPage) }, (_, i) => (
+                        <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                        {i + 1}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+
+                    </Pagination>
+                </div>}
+
            </div>
            <div className="col"></div>
 

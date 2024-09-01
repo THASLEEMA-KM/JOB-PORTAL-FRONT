@@ -20,7 +20,7 @@ const Register = () => {
         {
           try {
             const result = await registerAPI(userData)
-            console.log(result);
+            console.log(result.response);
             if(result.status==200)
               {
                 toast.success(`Welcome ${result?.data?.username}.. Please Login`)
@@ -34,7 +34,9 @@ const Register = () => {
                   skill:"",
                   experience:""
                 })
-                  navigate('/login')
+                  setTimeout(()=>{
+                    navigate('/login')
+                  },3000)
               }
               else{
                 if(result.response.status==406)

@@ -76,10 +76,10 @@ useEffect(()=>{
               savedJobs.length>0?
               savedJobs.map(item=>(
                     <Col key={item?._id} sm={12} md={6} lg={4}>
-                <Card className='ms-2 mt-3' style={{ width: '20rem' }}>
+                <Card className='ms-2 mt-3 ' style={{ width: '20rem' }}>
                     <Card.Body style={{textAlign:"center"}}>
                       <Card.Title className='fs-3'>{item?.title}</Card.Title>
-                      <Card.Subtitle className="my-2">Company Name : {item?.company}</Card.Subtitle>
+                      <Card.Subtitle className="my-2">Company Name : {item?.company.split(" ")[0]}</Card.Subtitle>
                       <Card.Text>Salary : {item?.salary}</Card.Text>
                       <Card.Text>Deadline : {item?.deadline} </Card.Text>
                       <div className='justify-content-between d-flex'>
