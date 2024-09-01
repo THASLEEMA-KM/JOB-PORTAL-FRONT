@@ -68,7 +68,7 @@ useEffect(()=>{
   return (
     <div>
              <Header  insideUserDashboard={true}/>   
-     <div style={{marginTop:"180px",height:"100vh"}}>
+     <div style={{marginTop:"180px",minHeight:"100vh"}}>
       <div className=' align-items-center container-fluid'>
         {/* this is to be dublicated part */}
           <Row className='container-fluid justify-content-center' >

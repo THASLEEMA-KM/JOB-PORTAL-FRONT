@@ -66,7 +66,7 @@ function PostJobs() {
   return (
     <>
      <AdminHeader insideDashboard={true}/>
-        <div style={{marginTop:"180px"}} className="justify-content-center align-items-center container-fluid">
+        <div style={{marginTop:"180px",minHeight:"100vh"}} className="justify-content-center align-items-center container-fluid">
             <h1 className="text-center text-primary my-3">ENTER JOB DETAILS</h1>
             <div className="row d-flex mt-5">
                 <div className="col-lg-3"></div>

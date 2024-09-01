@@ -65,7 +65,7 @@ const Register = () => {
 
   return (
     <>
-      <div style={{marginTop:"100px"}}>
+      <div style={{marginTop:"100px",minHeight:"100vh"}}>
         <h1 className="text-center fw-bolder text-primary">REGISTER HERE</h1>
         <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
           <div className="col-lg-3"></div>

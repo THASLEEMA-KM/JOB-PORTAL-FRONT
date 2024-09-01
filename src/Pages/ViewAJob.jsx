@@ -104,7 +104,7 @@ function ViewAJob() {
   return (
     <>
         <Header insideUserDashboard={true}/>
-      <div style={{marginTop:"150px",height:"100vh"}} className="row container-fluid justify-content-center align-items-center d-flex">
+      <div style={{marginTop:"150px",minHeight:"100vh"}} className="row container-fluid justify-content-center align-items-center d-flex">
           <div className="col-lg-2"></div>
           <div className="col-lg-8 p-5 border rounded-5 shadow " >
           <h1 className='text-center'>{jobDetails?.title}</h1>
