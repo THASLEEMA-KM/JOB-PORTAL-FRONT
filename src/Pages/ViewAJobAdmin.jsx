@@ -136,27 +136,29 @@ function ViewAJobAdmin() {
   return (
     <>
         <AdminHeader insideDashboard={true}/>
-      <div style={{marginTop:"150px",minHeight:"100vh"}} className="row container-fluid justify-content-center align-items-center d-flex">
-          <div className="col-lg-2"></div>
-          <div className="col-lg-8 p-5 border rounded-5 shadow" style={{width:"auto"}}>
-            <h1 className='text-center'>{jobDetails?.title}</h1>
-              <h3>Company Name:{jobDetails?.company}</h3>
-              <h3>Location : {jobDetails?.location}</h3>
-              <h3>Category : {jobDetails?.category}</h3>
-              <h3>Email : {jobDetails?.email}</h3>
-              <h3>Description : {jobDetails?.description}</h3>
-              <h3>Job type : {jobDetails?.jobType}</h3>
-              <h3>Salary : {jobDetails?.salary}/-</h3>
-              <h3>Deadline : {jobDetails?.deadline}</h3>
-              <h3>Experience : {jobDetails?.experience} Year(s)</h3>
-              <h3>Vacancies : {jobDetails?.vacancy}</h3>
-              
-              <div className="d-flex mt-5 justify-content-evenly">
-                <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning">Edit</button>
-                <button className="btn btn-outline-primary"><Link style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
-              </div>
+      <div style={{marginTop:"150px",minHeight:"100vh"}} className="container-fluid justify-content-center align-items-center">
+          <div className="row justify-content-center align-items-center d-flex">
+            <div className="col-lg-2"></div>
+            <div className="col-lg-8 p-5 border rounded-5 shadow justify-content-center">
+              <h1 className='text-center'>{jobDetails?.title}</h1>
+                <h3>Company Name:{jobDetails?.company}</h3>
+                <h3>Location : {jobDetails?.location}</h3>
+                <h3>Category : {jobDetails?.category}</h3>
+                <h3>Email : {jobDetails?.email}</h3>
+                <h3>Description : {jobDetails?.description}</h3>
+                <h3>Job type : {jobDetails?.jobType}</h3>
+                <h3>Salary : {jobDetails?.salary}/-</h3>
+                <h3>Deadline : {jobDetails?.deadline}</h3>
+                <h3>Experience : {jobDetails?.experience} Year(s)</h3>
+                <h3>Vacancies : {jobDetails?.vacancy}</h3>
+                
+                <div className="d-flex mt-5 justify-content-evenly">
+                  <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning">Edit</button>
+                  <button className="btn btn-outline-primary"><Link style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
+                </div>
+            </div>
+            <div className="col-lg-2"></div>
           </div>
-          <div className="col-lg-2"></div>
 
           <Modal
             show={show}
