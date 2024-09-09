@@ -6,7 +6,7 @@ import { loginAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { tokenAuthContext } from '../Contexts/AuthContext';
-
+import { signInWithPopup } from 'firebase/auth';
 const Login = () => {
   const {setIsAuthorised} = useContext(tokenAuthContext)
 
@@ -151,9 +151,9 @@ const navigate = useNavigate()
 
   return (
     <>
-    <div style={{marginTop:"100px",minHeight:"100vh"}}>
+    <div style={{marginTop:"100px",minHeight:"100vh"}} className='container-fluid'>
     <h1 className="text-center text-warning fw-bolder">LOGIN HERE</h1>
-     <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
+     <div className="row  d-flex justify-content-center align-items-center mt-5">
      <div className="col-lg-3"></div>
         <div className='col-lg-6  p-5  shadow rounded ' style={{width:"auto"}}>
               <div className='row d-flex justify-content-between'>

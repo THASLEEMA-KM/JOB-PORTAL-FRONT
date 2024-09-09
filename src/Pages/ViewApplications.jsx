@@ -134,7 +134,7 @@ console.log(allApplications);
         <AdminHeader insideDashboard={true}/>
         <h1 className="my-3 text-center">All Applicants</h1>
         <p className='text-center'>Total Count : {allApplications?.length}</p>
-        <div className='row container-fluid mt-5'>
+        <div className='row container-fluid mt-5 d-flex'>
             <div className="col"></div>
            <div className='col-lg-8'>
                 <table className='table border w-100 shadow'>
