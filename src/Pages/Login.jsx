@@ -6,7 +6,8 @@ import { loginAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { tokenAuthContext } from '../Contexts/AuthContext';
-import { signInWithPopup } from 'firebase/auth';
+// import { signInWithPopup } from 'firebase/auth';
+import { auth , googleProvider , signInWithPopup } from '../Firebase/firebase';
 const Login = () => {
   const {setIsAuthorised} = useContext(tokenAuthContext)
 
@@ -149,15 +150,33 @@ const navigate = useNavigate()
     }
   }
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      // Save the user info and token (if necessary)
+      sessionStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Welcome ${user.displayName}!`);
+  
+      // Redirect user to dashboard or home
+      setTimeout(() => {
+        navigate('/userdashboard');
+      }, 3000);
+    } catch (error) {
+      console.error("Google login error", error);
+      toast.error("Failed to sign in with Google");
+    }
+  };
   return (
     <>
     <div style={{marginTop:"100px",minHeight:"100vh"}} className='container-fluid'>
     <h1 className="text-center text-warning fw-bolder">LOGIN HERE</h1>
      <div className="row  d-flex justify-content-center align-items-center mt-5">
-     <div className="col-lg-3"></div>
-        <div className='col-lg-6  p-5  shadow rounded ' style={{width:"auto"}}>
-              <div className='row d-flex justify-content-between'>
-                <div className="col-lg-6">
+     <div className="col-lg-2"></div>
+        <div className='col-lg-8  p-5  shadow rounded ' style={{width:"auto"}}>
+              <div className='row d-grid justify-content-between'>
+                <div >
                 <FloatingLabel
                   controlId="floatingInput"
                   label="Email address"
@@ -177,18 +196,19 @@ const navigate = useNavigate()
               </div>
                 </div>
                 
-                <div className="col-lg-6 text-center d-grid">
+                <div className="text-center d-grid">
                   <h5 className="text-center text-warning pt-3">Or signup with</h5>
                   <hr className='pb-4' />
-                  <p className='btn btn-secondary rounded-5'><i className="fa-brands fa-google text-danger me-2"></i>Google</p>
-                  <p className='btn btn-secondary rounded-5'><i className="fa-brands fa-github text-dark me-2"></i>Github</p>
-                  <p className='btn btn-secondary rounded-5'><i class="fa-brands fa-linkedin text-primary me-2"></i>LinkedIn</p>
+                  <p onClick={handleGoogleLogin} className='btn btn-secondary rounded-5'><i className="fa-brands fa-google text-danger me-2"></i>Google</p>
+                  {/* <p className='btn btn-secondary rounded-5'><i className="fa-brands fa-github text-dark me-2"></i>Github</p>
+                  <p className='btn btn-secondary rounded-5'><i class="fa-brands fa-linkedin text-primary me-2"></i>LinkedIn</p> */}
                 </div>
+
               </div>
              
         </div>
         
-        <div className="col-lg-3"></div>
+        <div className="col-lg-2"></div>
         
      </div>
     </div>

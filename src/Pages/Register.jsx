@@ -68,8 +68,8 @@ const Register = () => {
       <div style={{marginTop:"100px",minHeight:"100vh"}} className='container-fluid'>
         <h1 className="text-center fw-bolder text-primary">REGISTER HERE</h1>
         <div className="row container-fluid d-flex justify-content-center align-items-center mt-5">
-          <div className="col-lg-3"></div>
-          <div className="col-lg-6 p-5  shadow rounded" style={{width:"auto"}}>
+          <div className="col-lg-2"></div>
+          <div className="col-lg-8 p-5 shadow rounded" style={{width:"auto"}}>
       <FloatingLabel
         controlId="floatingInputName"
         label="Your Name"
@@ -146,12 +146,12 @@ const Register = () => {
           <hr />
           <h5 className="text-center text-warning pt-2">Or signup with</h5>
           <div className="text-center justify-content-center d-flex py -3">
-                  <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-google text-danger"></i></p>
-                  <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-github text-dark"></i></p>
-                  <p className='btn btn-secondary rounded-5 me-3'><i class="fa-brands fa-linkedin text-primary"></i></p>
+                  <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-google text-danger me-2"></i>GOOGLE</p>
+                  {/* <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-github text-dark"></i></p>
+                  <p className='btn btn-secondary rounded-5 me-3'><i class="fa-brands fa-linkedin text-primary"></i></p> */}
                 </div>
           </div>
-          <div className="col-lg-3"></div>
+          <div className="col-lg-2"></div>
         </div>
       </div>
       <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
