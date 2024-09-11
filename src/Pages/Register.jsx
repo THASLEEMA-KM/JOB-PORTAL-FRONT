@@ -143,13 +143,13 @@ const Register = () => {
                 <button onClick={handleRegister} className="btn btn-success mb-3">REGISTER</button>
               <p className='mt-2 text-black text-center'>Already have an account? Please <Link to={'/login'}>Login</Link> </p>
           </div>
-          <hr />
+          {/* <hr />
           <h5 className="text-center text-warning pt-2">Or signup with</h5>
           <div className="text-center justify-content-center d-flex py -3">
                   <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-google text-danger me-2"></i>GOOGLE</p>
-                  {/* <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-github text-dark"></i></p>
-                  <p className='btn btn-secondary rounded-5 me-3'><i class="fa-brands fa-linkedin text-primary"></i></p> */}
-                </div>
+                  <p className='btn btn-secondary rounded-5 me-3'><i className="fa-brands fa-github text-dark"></i></p>
+                  <p className='btn btn-secondary rounded-5 me-3'><i class="fa-brands fa-linkedin text-primary"></i></p>
+                </div> */}
           </div>
           <div className="col-lg-2"></div>
         </div>
