@@ -88,7 +88,7 @@ function ViewAJob() {
      }
     }
     else{
-      toast.info("Please login first to apply job")
+      toast.info("Please login first to save a job")
       setTimeout(()=>{
         navigate('/login')
       },3000)
