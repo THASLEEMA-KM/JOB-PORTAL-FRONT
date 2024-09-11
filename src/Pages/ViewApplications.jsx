@@ -137,62 +137,64 @@ console.log(allApplications);
         <div className='row container-fluid mt-5 d-flex'>
             <div className="col"></div>
            <div className='col-lg-8'>
-                <table className='table border w-100 shadow'>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>CV</th>
-                            <th>Action</th>
-                            {/* <th><i className="fa-solid fa-ellipsis"></i></th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                             currentapplications?.length>0 &&
-                             currentapplications?.map((items,index)=>(
-                                 <tr key={items?._id}>
-
-                                 <td>{index+1}</td>                        
-                                 <td>{items?.username}</td>
-                                 <td>{items?.email}</td>
-                                 <td className={getStatusClassName(items?.status)}>
-                                    {items?.status}
-                                 </td>
-                                 <td>
-                                 <a style={{textDecoration:"none"}} href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
-            Download CV
-          </a>
-                                 </td>
-                                 <td>
-                                 <select name="" id="" className='form-control '
-                                    value={items?.status}
-                                    onChange={(e)=>handleStatusChange(e,items._id)}
-                                    // onChange={(e)=>setStatusChange({...statusChange,status:e.target.value})}
-                                    >
-                                        <option value="" selected disabled hidden> Select one</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Rejected">Rejected</option>
-                                    </select>
-                                 </td>
-
-                                 {/* <td>
-                                 <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button>
-                                 <i onClick={()=>handleDeleteApplication(items?._id)} className="fa-solid fa-trash text-danger"></i> 
-                                 </td> */}
-                                 
-                                 </tr>
-                             ))
-                            //  :
-                            //  <div>
-                            //      no applications
-                            //  </div>
-                        }
-                    </tbody>
-                </table>
+                <div className='table-responsive'>
+                    <table className='table border w-100 shadow'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>CV</th>
+                                <th>Action</th>
+                                {/* <th><i className="fa-solid fa-ellipsis"></i></th> */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                 currentapplications?.length>0 &&
+                                 currentapplications?.map((items,index)=>(
+                                     <tr key={items?._id}>
+    
+                                     <td>{index+1}</td>                        
+                                     <td>{items?.username}</td>
+                                     <td>{items?.email}</td>
+                                     <td className={getStatusClassName(items?.status)}>
+                                        {items?.status}
+                                     </td>
+                                     <td>
+                                     <a style={{textDecoration:"none"}} href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
+                Download CV
+              </a>
+                                     </td>
+                                     <td>
+                                     <select name="" id="" className='form-control '
+                                        value={items?.status}
+                                        onChange={(e)=>handleStatusChange(e,items._id)}
+                                        // onChange={(e)=>setStatusChange({...statusChange,status:e.target.value})}
+                                        >
+                                            <option value="" selected disabled hidden> Select one</option>
+                                            <option value="Approved">Approved</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Rejected">Rejected</option>
+                                        </select>
+                                     </td>
+    
+                                     {/* <td>
+                                     <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button>
+                                     <i onClick={()=>handleDeleteApplication(items?._id)} className="fa-solid fa-trash text-danger"></i> 
+                                     </td> */}
+                                     
+                                     </tr>
+                                 ))
+                                //  :
+                                //  <div>
+                                //      no applications
+                                //  </div>
+                            }
+                        </tbody>
+                    </table>
+                </div>
                 {
                             currentapplications?.length==0 &&
                         <div className='fw-bolder text-center text-danger'>

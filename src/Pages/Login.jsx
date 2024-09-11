@@ -7,7 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { tokenAuthContext } from '../Contexts/AuthContext';
 // import { signInWithPopup } from 'firebase/auth';
-import { auth , googleProvider , signInWithPopup } from '../Firebase/firebase';
+// import { auth , googleProvider , signInWithPopup } from '../Firebase/firebase';
+// import app from '../Firebase/firebase';
+// import { GoogleAuthProvider , signInWithPopup } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+
+
 const Login = () => {
   const {setIsAuthorised} = useContext(tokenAuthContext)
 
@@ -17,6 +22,9 @@ const Login = () => {
   })
 console.log(userData);
 const navigate = useNavigate()
+
+// const googleProvider = new GoogleAuthProvider();
+// const auth = getAuth();
 
   // const handleLogin = async(e)=>{
   //   console.log("Inside Login");
@@ -150,24 +158,53 @@ const navigate = useNavigate()
     }
   }
 
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+  // const handleGoogleLogin = async () => {
+  //   // try {
+  //   //   const result = await signInWithPopup(auth, googleProvider);
+  //   //   const user = result.user;
       
-      // Save the user info and token (if necessary)
-      sessionStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Welcome ${user.displayName}!`);
+  //   //   // Save the user info and token (if necessary)
+  //   //   sessionStorage.setItem("user", JSON.stringify(user));
+  //   //   toast.success(`Welcome ${user.displayName}!`);
   
-      // Redirect user to dashboard or home
-      setTimeout(() => {
-        navigate('/userdashboard');
-      }, 3000);
-    } catch (error) {
-      console.error("Google login error", error);
-      toast.error("Failed to sign in with Google");
-    }
-  };
+  //   //   // Redirect user to dashboard or home
+  //   //   setTimeout(() => {
+  //   //     navigate('/userdashboard');
+  //   //   }, 3000);
+  //   // } catch (error) {
+  //   //   console.error("Google login error", error);
+  //   //   toast.error("Failed to sign in with Google");
+  //   // }
+  //   signInWithPopup(auth, googleProvider)
+  //   .then((result) => {
+  //     // // This gives you a Google Access Token. You can use it to access the Google API.
+  //     // const credential = GoogleAuthProvider.credentialFromResult(result);
+  //     // const token = credential.accessToken;
+  //     // // The signed-in user info.
+  //     const user = result.user;
+  //     console.log(user);
+  //        sessionStorage.setItem("user", JSON.stringify(user));
+  //     toast.success(`Welcome ${user.displayName}!`);
+  
+  //     // Redirect user to dashboard or home
+  //     setTimeout(() => {
+  //       navigate('/userdashboard');
+  //     }, 3000);
+  //     // IdP data available using getAdditionalUserInfo(result)
+  //     // ...
+
+  //   }).catch((error) => {
+  //     // Handle Errors here.
+  //     // const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     const email = error.customData.email;
+  //     // The AuthCredential type that was used.
+  //     const credential = GoogleAuthProvider.credentialFromError(error);
+  //     // ...
+  //   });
+  // };
+ 
   return (
     <>
     <div style={{marginTop:"100px",minHeight:"100vh"}} className='container-fluid'>
@@ -196,13 +233,14 @@ const navigate = useNavigate()
               </div>
                 </div>
                 
-                <div className="text-center d-grid">
+                {/* <div className="text-center d-grid">
                   <h5 className="text-center text-warning pt-3">Or signup with</h5>
                   <hr className='pb-4' />
                   <p onClick={handleGoogleLogin} className='btn btn-secondary rounded-5'><i className="fa-brands fa-google text-danger me-2"></i>Google</p>
-                  {/* <p className='btn btn-secondary rounded-5'><i className="fa-brands fa-github text-dark me-2"></i>Github</p>
-                  <p className='btn btn-secondary rounded-5'><i class="fa-brands fa-linkedin text-primary me-2"></i>LinkedIn</p> */}
-                </div>
+                  <p className='btn btn-secondary rounded-5'><i className="fa-brands fa-github text-dark me-2"></i>Github</p>
+                  <p className='btn btn-secondary rounded-5'><i class="fa-brands fa-linkedin text-primary me-2"></i>LinkedIn</p>
+                </div> */}
+                
 
               </div>
              

@@ -1,19 +1,19 @@
 import { initializeApp } from "firebase/app";
-import { getAuth , signInWithPopup , GoogleAuthProvider } from "firebase/auth";
+// import { getAuth , signInWithPopup , GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDp_6JnnEwKOEMLNqrgwcu1svUA379oGP4",
-    authDomain: "job-portal-4ccf3.firebaseapp.com",
-    projectId: "job-portal-4ccf3",
-    storageBucket: "job-portal-4ccf3.appspot.com",
-    messagingSenderId: "172152496803",
-    appId: "1:172152496803:web:3d355ee9d70580d8b2d516"
-  };
+  apiKey: "AIzaSyAuF6HsN3QperDSULK9he0XLIdW6c7Dulo",
+  authDomain: "job-portal-40a5f.firebaseapp.com",
+  projectId: "job-portal-40a5f",
+  storageBucket: "job-portal-40a5f.appspot.com",
+  messagingSenderId: "446980777477",
+  appId: "1:446980777477:web:23a63ffbd224c97f825e6c"
+};
   
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const googleProvider = new GoogleAuthProvider();
+  // const auth = getAuth(app);
+  // const googleProvider = new GoogleAuthProvider();
 
 //   const signinWithGoogle = ()=>{
 //     signInWithPopup(auth,googleProvider).then((result)=>{
@@ -25,7 +25,6 @@ const firebaseConfig = {
 //     })
 //   }
 
-
-  export { auth, googleProvider, signInWithPopup };
+  // export { auth, googleProvider, signInWithPopup };
   
   export default app
