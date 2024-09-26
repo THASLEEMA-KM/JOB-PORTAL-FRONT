@@ -147,13 +147,13 @@ function ViewAJobAdmin() {
                 <h3>Email : {jobDetails?.email}</h3>
                 <h3>Description : {jobDetails?.description}</h3>
                 <h3>Job type : {jobDetails?.jobType}</h3>
-                <h3>Salary : {jobDetails?.salary}/-</h3>
+                <h3>Salary : {jobDetails?.salary} PA</h3>
                 <h3>Deadline : {jobDetails?.deadline}</h3>
-                <h3>Experience : {jobDetails?.experience} Year(s)</h3>
+                <h3>Experience : {jobDetails?.experience}</h3>
                 <h3>Vacancies : {jobDetails?.vacancy}</h3>
                 
                 <div className="d-flex mt-5 justify-content-evenly">
-                  <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning">Edit</button>
+                  <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning me-2">Edit</button>
                   <button className="btn btn-outline-primary"><Link style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
                 </div>
             </div>
