@@ -6,6 +6,7 @@ import { loginAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { tokenAuthContext } from '../Contexts/AuthContext';
+
 // import { signInWithPopup } from 'firebase/auth';
 // import { auth , googleProvider , signInWithPopup } from '../Firebase/firebase';
 // import app from '../Firebase/firebase';
@@ -137,7 +138,6 @@ const navigate = useNavigate()
                 email:"",
                 password:""})
                 toast.success(`Welcome ${result.data.user.username}..!`)
-                // toast.success("Login Successfull")
                 setTimeout(()=>{
                   navigate('/userdashboard')
                 },3000)
@@ -240,14 +240,10 @@ const navigate = useNavigate()
                   <p className='btn btn-secondary rounded-5'><i className="fa-brands fa-github text-dark me-2"></i>Github</p>
                   <p className='btn btn-secondary rounded-5'><i class="fa-brands fa-linkedin text-primary me-2"></i>LinkedIn</p>
                 </div> */}
-                
-
               </div>
              
         </div>
-        
-        <div className="col-lg-2"></div>
-        
+        <div className="col-lg-2"></div> 
      </div>
     </div>
     <ToastContainer theme='colored' autoClose={3000} position='top-center'/>

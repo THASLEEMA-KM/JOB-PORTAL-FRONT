@@ -109,16 +109,19 @@ function UserDashboard() {
               ))}
             </div>
             <div className='d-flex justify-content-center my-5'>
+            { 
+            searchedjobs.length>6 &&
               <Pagination>
-              <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
-                {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
-                  <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
-                    {i + 1}
-                  </Pagination.Item>
-                ))}
-              <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+              {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
+                <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
 
-              </Pagination>
+            </Pagination>
+            }
           </div>
           </div>
         )

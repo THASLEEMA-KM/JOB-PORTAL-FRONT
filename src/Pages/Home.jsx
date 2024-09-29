@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import homeimage from '../assets/homeimg1.png'
 import homegif from '../assets/homegif.gif'
 import './home.css'
 import Header from '../Components/Header';
 import { viewAllJobAPI } from '../Services/allAPI';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'react-bootstrap';
-// import ViewJob from './ViewJob';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [searchKey,setSearchKey] = useState("")
@@ -36,14 +36,14 @@ const Home = () => {
   }
   const handleSearch=()=>{
     if(searchKey==""){
-      alert("Please enter any category name")
+      toast.info("Please enter any category name")
     }
     else{
       getsearchedJobs()
     }
   }
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const jobsPerPage = 6; // Jobs to display per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 6; 
   const indexOfLastJob = currentPage * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
   const currentsearchedJobs = searchedjobs.slice(indexOfFirstJob, indexOfLastJob);
@@ -55,7 +55,6 @@ const Home = () => {
     ) {
       setCurrentPage(pageNumber);
     }
-    //  setCurrentPage(pageNumber);
     }
   useEffect(()=>{
     setSearchPerformed(false)
@@ -93,16 +92,15 @@ const Home = () => {
               </div>
           </div>
           <div className="col-lg-5">
-            {/* <img className='img-fluid' src={homeimage} alt="" /> */}
             <img className='img-fluid' src={homegif} alt="homegif" />
           </div>
        </div>
-       {/* to display searched jobs */}
 
+       {/* to display searched jobs */}
        {
         searchPerformed && searchedjobs.length > 0 && (
           <div className="mt-2 container">
-            <h3>Search Results</h3>
+            <h3 className='text-primary text-center fw-bolder py-3'>Search Results</h3>
             <div className="row">
               {currentsearchedJobs.map(job => (
                 <div key={job.id} className="col-lg-4 mb-3">
@@ -115,7 +113,9 @@ const Home = () => {
               ))}
             </div>
             <div className='d-flex justify-content-center my-5'>
-            <Pagination>
+            { 
+            searchedjobs.length>6 &&
+              <Pagination>
             <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
               {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
                 <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
@@ -125,13 +125,10 @@ const Home = () => {
             <Pagination.Next onClick={() => paginate(currentPage + 1)} />
 
             </Pagination>
+            }
           </div>
           </div> 
         )
-      //   :
-      //   <div className="mt-3 container">
-      //   <h5>No jobs found matching your search criteria.</h5>
-      // </div>
       }
       {
         searchPerformed && searchedjobs.length === 0 && (
@@ -140,37 +137,10 @@ const Home = () => {
           </div>
         )
       }
-       {/* {
-        searchedjobs.length > 0 &&
-        <div className="mt-3 container">
-          <h3>Search Results</h3>
-          <div className="row">
-            {searchedjobs.map(job => (
-              <div key={job.id} className="col-lg-4 mb-3">
-                <div className="card p-3">
-                  <h5>{job.title}</h5>
-                  <p>{job.description}</p>
-                  <Button variant="primary">Apply</Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-       } */}
-       {/* {
-        searchedjobs.length>0 &&
-        <div className="d-flex mt-3 justify-content-between">
-            <ViewJob jobs={searchedjobs}/>
-       </div>
-      //  :
-      //  <div>
-      //   no jobs found
-      //  </div>
-       } */}
       </div>
+      <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
    </>
   )
 }
 
 export default Home
-

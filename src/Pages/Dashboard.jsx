@@ -7,6 +7,10 @@ import homegif from '../assets/homegif.gif'
 import './home.css'
 import { viewAllJobAPI } from '../Services/allAPI';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Dashboard() {
   const [searchKey,setSearchKey] = useState("")
@@ -44,11 +48,13 @@ function Dashboard() {
       setCurrentPage(pageNumber);
     }
     }
-  const handleSearch=()=>{
-    if(searchKey==""){
-      alert("Please enter any category name")
+    const handleSearch=()=>{
+    if(searchKey=="")
+    {
+      toast.info("Please enter any category name")
     }
-    else{
+    else
+    {
       getsearchedJobs()
     }
   }
@@ -57,9 +63,9 @@ function Dashboard() {
   },[searchKey])
   return (
     <>
-        <AdminHeader insideDashboard={true}/>
-        <div style={{minHeight:"100vh",marginTop:"150px"}} className='bg-white'>
-       <div className="row container-fluid justify-content-between align-items-center">
+      <AdminHeader insideDashboard={true}/>
+      <div style={{minHeight:"100vh",marginTop:"150px"}} className='bg-white'>
+        <div className="row container-fluid justify-content-between align-items-center">
           <div className="col-lg-7 ">
             <h1 className='homehead text-dark '><strong>To Choose</strong> <br />
             <h1 className='fw-bolder homehead'>Right Jobs.</h1></h1>
@@ -90,50 +96,50 @@ function Dashboard() {
           <div className="col-lg-5">
             <img className='img-fluid' src={homegif} alt="homegif" />
           </div>
-       </div>
-              {/* to display searched jobs */}
+        </div>
 
-              {
-        searchPerformed && searchedjobs.length > 0 && (
-          <div className="mt-2 container">
-            <h3>Search Results</h3>
-            <div className="row">
-              {currentsearchedJobs.map(job => (
-                <div key={job.id} className="col-lg-4 mb-3">
-                  <div className="card p-3 h-100">
-                  <h5 className='text-center'>{job.title}</h5>
-                  <p>{job.description.slice(0,80)}...</p>
-                    <Link to={`/viewjobs/${job._id}`}  variant="primary">view</Link>
+        {/* to display searched jobs */}
+        {
+            searchPerformed && searchedjobs.length > 0 && (
+            <div className="mt-2 container">
+              <h3>Search Results</h3>
+              <div className="row">
+                {currentsearchedJobs.map(job => (
+                  <div key={job.id} className="col-lg-4 mb-3">
+                    <div className="card p-3 h-100">
+                    <h5 className='text-center'>{job.title}</h5>
+                    <p>{job.description.slice(0,80)}...</p>
+                      <Link to={`/viewjobs/${job._id}`}  variant="primary">view</Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <div className='d-flex justify-content-center my-5'>
+              { 
+                searchedjobs.length>6 &&
+                  <Pagination>
+                    <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+                      {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
+                        <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                          {i + 1}
+                        </Pagination.Item>
+                      ))}
+                    <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+                  </Pagination>
+              }
             </div>
-            <div className='d-flex justify-content-center my-5'>
-            <Pagination>
-            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
-              {Array.from({ length: Math.ceil(searchedjobs.length / jobsPerPage) }, (_, i) => (
-                <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
-                  {i + 1}
-                </Pagination.Item>
-              ))}
-            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
-
-            </Pagination>
-          </div>
-          </div>
-        )
-      
-
-
-      }
-      {
-        searchPerformed && searchedjobs.length === 0 && (
-          <div className="mt-3 container">
-            <h5 className='text-danger text-center fw-bolder'>No jobs found matching your search criteria.</h5>
-          </div>
-        )
-      }
+            </div>
+          )
+        }
+        {
+          searchPerformed && searchedjobs.length === 0 && (
+            <div className="mt-3 container">
+              <h5 className='text-danger text-center fw-bolder'>No jobs found matching your search criteria.</h5>
+            </div>
+          )
+        }
       </div>
+      <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
     </>
   )
 }

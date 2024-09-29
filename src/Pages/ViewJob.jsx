@@ -87,7 +87,7 @@ const ViewJob = () => {
                 <Card.Body style={{textAlign:"center"}}>
                   <Card.Title className='fs-3'>{jobs?.title}</Card.Title>
                   <Card.Subtitle className="my-2">Company Name : {jobs?.company}</Card.Subtitle>
-                  <Card.Text>Salary : {jobs?.salary}</Card.Text>
+                  <Card.Text>Salary : {jobs?.salary}PA</Card.Text>
                   <Card.Text>Deadline : {jobs?.deadline} </Card.Text>
                   <div><button className='btn btn-outline-dark'><Link to={`/viewjobs/${jobs._id}`} style={{textDecoration:"none"}}>View Details</Link><i className="fa-solid fa-arrow-right ms-2"></i></button></div>
                 </Card.Body>

@@ -103,10 +103,9 @@ if(token){
                 <Card.Body style={{textAlign:"center"}}>
                   <Card.Title className='fs-3'>{jobs?.title}</Card.Title>
                   <Card.Subtitle className="my-2">Company Name : {jobs?.company}</Card.Subtitle>
-                  <Card.Text>Salary : {jobs?.salary}</Card.Text>
+                  <Card.Text>Salary : {jobs?.salary}PA</Card.Text>
                   <Card.Text>Deadline : {jobs?.deadline} </Card.Text>
                   <div className='d-flex justify-content-between'>
-                    {/* <button className='btn btn-outline-dark' onClick={handleJobDetails}>View Details<i className="fa-solid fa-arrow-right ms-2"></i></button> */}
                     <button className='btn btn-outline-dark'><Link to={`/viewJobsAdmin/${jobs._id}`}>View Details</Link><i className="fa-solid fa-arrow-right ms-2"></i></button>
                     <button onClick={()=>handledeleteJob(jobs?._id)} className="btn text-danger"><i className="fa-solid fa-trash"></i></button>
                     </div>

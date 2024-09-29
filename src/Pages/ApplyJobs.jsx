@@ -13,13 +13,10 @@ function ApplyJobs() {
   const {applyResponse,setApplyResponse} = useContext(applyReponseContext)
   const {updateProfileResponse,setUpdateProfileResponse} = useContext(updateProfileResponseContext)
 
-const navigate = useNavigate()
+  const navigate = useNavigate()
   const {id} = useParams()
   const email = JSON.parse(sessionStorage.getItem('user'))?.email;
-
-  console.log(email);
-  
-  
+  // console.log(email);
 
   const [appliedJobs,setAppliedJobs] = useState({
     jobId: id,
@@ -29,8 +26,7 @@ const navigate = useNavigate()
     mobile:"",
     resumeFile:null
   })
-
-  console.log(appliedJobs);
+  // console.log(appliedJobs);
   
 
   const handleApplyAJob = async (e) =>{
@@ -46,28 +42,19 @@ const navigate = useNavigate()
             reqBody.append("email",email)
             reqBody.append("mobile",mobile)
             reqBody.append("resumeFile",resumeFile)
-
-            console.log(reqBody);
+            // console.log(reqBody);
             
             const token = sessionStorage.getItem("token")
-            // const userId =JSON.parse(sessionStorage.getItem('user'))?._id;
             const userId = sessionStorage.getItem("user")
-            console.log(userId);
-            // const {id} = useParams()
-            // console.log(id);
-
           if(token && userId){
               console.log("api calling function");
-              // alert("api call to be")
-            const reqHeader = {
+              const reqHeader = {
               "Content-Type" : "multipart/form-data",
               "Authorization" : `Bearer ${token}`
             };
 
             console.log("Request Headers:", reqHeader);
-            console.log("Request Body:", reqBody);
-            // alert("make api call")
-            
+            console.log("Request Body:", reqBody);            
             try {
               const result = await applyJobAPI(id,reqBody,reqHeader)
               console.log(result);
@@ -88,36 +75,12 @@ const navigate = useNavigate()
                     navigate('/viewjobs')
                   },3000)
               }else{
-                // toast.warning("job already applied")
                   toast.warning(result.response.data)
               }
             }catch(error) { 
               console.log(error);
-              console.error("Error applying for job:", error);
-              // toast.error("Something went wrong. Please try again later.");
-            
+              console.error("Error applying for job:", error);            
             }
-
-            // try {
-            //   const result =  await applyJobAPI(id,appliedJobs,reqHeader)
-            //   if(result.status==200){
-            //    toast.success("Job Applied Successfully!")
-            //    setApplyResponse(result)
-            //       setAppliedJobs({
-            //         _id:id,
-            //         title:applyResponse.title || "",
-            //         username:"",
-            //         email:"",
-            //         mobile:"",
-            //         resumeFile:null
-            //       })
-            //   }
-            //   else{
-            //    toast.warning("Job Already Applied")
-            //   }
-            //   } catch (error) {
-            //    console.log(error);
-            //   }
           }
       }else{
         alert("Please fill the form completely")
@@ -135,79 +98,55 @@ const navigate = useNavigate()
 };
   return (
     <>
-        <Header insideUserDashboard={true}/>
+      <Header insideUserDashboard={true}/>
         <div style={{marginTop:"180px",minHeight:"100vh"}} className="justify-content-center align-items-center container-fluid">
-        <h1 className="text-center text-primary my-3">APPLY JOB HERE</h1>
-        <div className="row d-flex mt-5">
-          <div className="col-lg-3"></div>
-          <div className="col-lg-6  border p-3 rounded shadow">
-          <Form>
+          <h1 className="text-center text-primary my-3">APPLY JOB HERE</h1>
+          <div className="row d-flex mt-5">
+            <div className="col-lg-3"></div>
+            <div className="col-lg-6  border p-3 rounded shadow">
+              <Form>
+                  <FloatingLabel controlId="floatingTitle" label="Job Name" className="mb-3">
+                    <Form.Control type="text" placeholder="Job Name"
+                    value={appliedJobs.title}
+                    readOnly/>
+                  </FloatingLabel>
 
-              <FloatingLabel controlId="floatingTitle" label="Job Name" className="mb-3">
-                <Form.Control type="text" placeholder="Job Name"
-                value={appliedJobs.title}
-                readOnly
-                // onChange={(e)=>setAppliedJobs({...appliedJobs,title:e.target.value})}
-                />
-              </FloatingLabel>
+                  <FloatingLabel controlId="floatingName" label="Name" className="mb-3">
+                    <Form.Control type="text" placeholder="User name" 
+                    value={appliedJobs.username}
+                    onChange={(e)=>setAppliedJobs({...appliedJobs,username:e.target.value})}/>
+                  </FloatingLabel>
 
-              <FloatingLabel controlId="floatingName" label="Name" className="mb-3">
-                <Form.Control type="text" placeholder="User name" 
-                value={appliedJobs.username}
-                onChange={(e)=>setAppliedJobs({...appliedJobs,username:e.target.value})}/>
-              </FloatingLabel>
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="Email address"
+                    className="mb-3">
+                    <Form.Control type="email" placeholder="name@example.com" 
+                    value={appliedJobs.email}
+                    readOnly/>
+                  </FloatingLabel>
 
-              <FloatingLabel
-                controlId="floatingInput"
-                label="Email address"
-                className="mb-3">
-                <Form.Control type="email" placeholder="name@example.com" 
-                value={appliedJobs.email}
-                readOnly
-                // onChange={(e)=>setAppliedJobs({...appliedJobs,email:e.target.value})}
-                />
-              </FloatingLabel>
+                  <FloatingLabel controlId="floatingMobile" label="Mobile Number" className="mb-3">
+                    <Form.Control type="text" placeholder="Mobile Number"  
+                    value={appliedJobs.mobile}
+                    onChange={(e)=>setAppliedJobs({...appliedJobs,mobile:e.target.value})}/>
+                  </FloatingLabel>
 
-              <FloatingLabel controlId="floatingMobile" label="Mobile Number" className="mb-3">
-                <Form.Control type="text" placeholder="Mobile Number"  
-                value={appliedJobs.mobile}
-                onChange={(e)=>setAppliedJobs({...appliedJobs,mobile:e.target.value})}/>
-              </FloatingLabel>
+                  <FloatingLabel controlId="floating" label="Upload CV">
+                    <Form.Control type="file" placeholder="Upload CV" 
+                    accept=".pdf" 
+                    onChange={(e) => handleFileChange(e)}/>
+                  </FloatingLabel>
 
-              {/* {appliedJobs?.resumeFile ? (
-            <div className="mb-3">
-                <label>Uploaded Resume:</label>
-                <a 
-                    href={`${SERVER_URL}/uploads/${appliedJobs?.resumeFile}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="btn btn-link"
-                >
-                    View/Download Resume
-                </a>
+                  <div className="text-center my-3">
+                    <button type='button' onClick={handleApplyAJob} className="btn btn-info">APPLY</button>
+                  </div>
+              </Form>
             </div>
-        ) : (
-            <p>No resume uploaded.</p>
-        )} */}
-              <FloatingLabel controlId="floating" label="Upload CV">
-                <Form.Control type="file" placeholder="Upload CV" 
-                // value={`${SERVER_URL}/uploads/${appliedJobs.resumeFile}`}
-                accept=".pdf" 
-                onChange={(e) => handleFileChange(e)}
-                // onChange={(e)=>setAppliedJobs({...appliedJobs,resumeFile:e.target.files[0]})}
-                />
-              </FloatingLabel>
-
-              <div className="text-center my-3">
-                <button type='button' onClick={handleApplyAJob} className="btn btn-info">APPLY</button>
-              </div>
-          </Form>
+            <div className="col-lg-3"></div>
           </div>
-          <div className="col-lg-3"></div>
         </div>
-        </div>
-        <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
-
+      <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
     </>
   )
 }
