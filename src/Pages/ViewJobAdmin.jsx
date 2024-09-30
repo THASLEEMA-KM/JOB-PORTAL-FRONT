@@ -16,7 +16,7 @@ const ViewJobAdmin = () => {
   const [allJobs,setAllJobs] = useState([])
   console.log(allJobs);
   const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const jobsPerPage = 9; // Jobs to display per page
+  const jobsPerPage = 8; // Jobs to display per page
   useEffect(()=>{
     viewAllJobs()
   },[addJobResponse,editJobResponse])
@@ -49,25 +49,6 @@ const ViewJobAdmin = () => {
       }
       }
 
-//   const handleJobDetails = async ()=>{
-//     if(sessionStorage.getItem("token")){
-//         // try {
-//         //     const result = await viewAJobAPI()
-//         //     if(result.status==200){
-//         //         navigate(`/${allJobs._id}/viewjobdetailsAdmin`)
-//         //     }
-    
-//         //   } catch (error) {
-//         //     console.log(error);
-//         //   }
-//     //   navigate('/5/viewjobdetailsAdmin')
-//     navigate(`/${allJobs._id}/viewjobdetailsAdmin`)
-
-//     }else{
-//       toast.warning("Please Login to view job Details")
-//     }
-//   }
-
 const handledeleteJob = async (jid)=>{
 const token = sessionStorage.getItem("token")
 if(token){
@@ -98,12 +79,12 @@ if(token){
            {
             currentJobs.length>0?
             currentJobs.map(jobs=>(
-              <Col key={jobs?._id} sm={12} md={6} lg={4}>
+              <Col key={jobs?._id} sm={12} md={6} lg={4} xl={3}>
             <Card className='ms-2 mt-3' style={{ width: '20rem' }}>
                 <Card.Body style={{textAlign:"center"}}>
                   <Card.Title className='fs-3'>{jobs?.title}</Card.Title>
                   <Card.Subtitle className="my-2">Company Name : {jobs?.company}</Card.Subtitle>
-                  <Card.Text>Salary : {jobs?.salary}PA</Card.Text>
+                  <Card.Text>Salary : {jobs?.salary} PA</Card.Text>
                   <Card.Text>Deadline : {jobs?.deadline} </Card.Text>
                   <div className='d-flex justify-content-between'>
                     <button className='btn btn-outline-dark'><Link to={`/viewJobsAdmin/${jobs._id}`}>View Details</Link><i className="fa-solid fa-arrow-right ms-2"></i></button>

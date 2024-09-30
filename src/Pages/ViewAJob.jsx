@@ -115,7 +115,7 @@ function ViewAJob() {
                 <h3>Email : {jobDetails?.email}</h3>
                 <h3>Description : {jobDetails?.description}</h3>
                 <h3>Job type : {jobDetails?.jobType}</h3>
-                <h3>Salary : {jobDetails?.salary}PA</h3>
+                <h3>Salary : {jobDetails?.salary} PA</h3>
                 <h3>Deadline : {jobDetails?.deadline}</h3>
                 <h3>Experience : {jobDetails?.experience} </h3>
                 <h3>Vacancies : {jobDetails?.vacancy}</h3>

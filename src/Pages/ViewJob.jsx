@@ -16,7 +16,7 @@ const ViewJob = () => {
   const [allJobs,setAllJobs] = useState([])
   console.log(allJobs);
   const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const jobsPerPage = 9; // Jobs to display per page
+  const jobsPerPage = 8; // Jobs to display per page
 
   useEffect(()=>{
     viewAllJobs()
@@ -50,26 +50,7 @@ const ViewJob = () => {
     ) {
       setCurrentPage(pageNumber);
     }
-    //  setCurrentPage(pageNumber);
     }
-
-  // const handleJobDetails = async ()=>{
-  //   if(sessionStorage.getItem("token")){
-  //     // try {
-  //     //   const result = await viewAJobAPI()
-  //     //   if(result.status==200){
-  //     //       navigate(`/${allJobs._id}/viewjobdetails`)
-  //     //   }
-
-  //     // } catch (error) {
-  //     //   console.log(error);
-  //     // }
-  //     navigate(`/${allJobs.id}/viewjobdetails`)
-
-  //   }else{
-  //     toast.warning("Please Login to view job Details")
-  //   }
-  // }
 
   return (
    <>
@@ -82,12 +63,12 @@ const ViewJob = () => {
            {
             currentJobs.length>0?
             currentJobs.map(jobs=>(
-              <Col key={jobs?._id} sm={12} md={6} lg={4}>
+              <Col key={jobs?._id} sm={12} md={6} lg={4} xl={3}>
             <Card className='ms-2 mt-3' style={{ width: '20rem' }}>
                 <Card.Body style={{textAlign:"center"}}>
                   <Card.Title className='fs-3'>{jobs?.title}</Card.Title>
                   <Card.Subtitle className="my-2">Company Name : {jobs?.company}</Card.Subtitle>
-                  <Card.Text>Salary : {jobs?.salary}PA</Card.Text>
+                  <Card.Text>Salary : {jobs?.salary} PA</Card.Text>
                   <Card.Text>Deadline : {jobs?.deadline} </Card.Text>
                   <div><button className='btn btn-outline-dark'><Link to={`/viewjobs/${jobs._id}`} style={{textDecoration:"none"}}>View Details</Link><i className="fa-solid fa-arrow-right ms-2"></i></button></div>
                 </Card.Body>

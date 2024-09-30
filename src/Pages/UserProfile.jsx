@@ -223,7 +223,7 @@ function UserProfile() {
         />
       </FloatingLabel>
       <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
-        <Form.Control type="password" placeholder="Password" value={updatedProfile.password}
+        <Form.Control type="text" placeholder="Password" value={updatedProfile.password}
         onChange={(e)=>setUpdatedProfile({...updatedProfile,password:e.target.value})}
 />
       </FloatingLabel>
@@ -274,13 +274,7 @@ function UserProfile() {
           <option value="3 - 5 yrs">3 - 5 yrs</option>
           <option value="Above 5 yrs">Above 5 yrs</option>
         </select>
-      </form>
-      {/* <FloatingLabel controlId="floating" label="Upload CV">
-                <Form.Control type="file" placeholder="Upload CV" 
-                // value={updatedProfile.resumeFile}
-                // value={`${SERVER_URL}/uploads/${appliedJobs.resumeFile}`}
-                onChange={(e)=>setUpdatedProfile({...updatedProfile,resumeFile:e.target.files[0]})}/>
-              </FloatingLabel> */}
+      </form>      
                {userDetails.resumeFile ? (
             <div className="mb-3">
                 <label>Uploaded Resume:</label>
