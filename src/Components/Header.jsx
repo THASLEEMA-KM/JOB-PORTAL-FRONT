@@ -99,7 +99,6 @@ const Header = ({insideUserDashboard}) => {
                      SIGNUP
                   </Link>
                   }
-                  
                 </Nav>
               </Navbar.Collapse>
             </Container>

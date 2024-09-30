@@ -34,10 +34,6 @@ function ViewAJob() {
           deadline: formatDate(result.data.deadline)
         }
         setJobDetails(formattedJobDetails)
-        // const job = result.data
-        //   job.deadline = new Date(job.deadline).toLocaleDateString(); 
-        //     setJobDetails(job)
-          // setJobDetails(result.data)
           setApplyResponse(result.data)
       }
   } catch (error) {
@@ -64,7 +60,6 @@ function ViewAJob() {
     const token = sessionStorage.getItem("token")
     const id = jobDetails._id
     console.log(`job id is ${id}`);
-    // const {id} = useParams()
     if(token){
       // api call
       const reqHeader = {

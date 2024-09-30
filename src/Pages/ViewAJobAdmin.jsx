@@ -267,13 +267,7 @@ function ViewAJobAdmin() {
 
                             />
                     </Form.Group>
-                    {/* <Form.Group className="mb-3" controlId="formGroupDeadline">
-                          <Form.Label className='text-black'>Deadline : </Form.Label>
-                          <Form.Control className='border rounded p-3 text-black' type="date" placeholder="Entar job Deadline" 
-                          />
-                      </Form.Group> */}
-
-
+                  
                     </Form>
             </Modal.Body>
             <Modal.Footer>

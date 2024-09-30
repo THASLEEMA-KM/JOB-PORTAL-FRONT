@@ -16,7 +16,7 @@ const ViewJobAdmin = () => {
   const [allJobs,setAllJobs] = useState([])
   console.log(allJobs);
   const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const jobsPerPage = 8; // Jobs to display per page
+  const jobsPerPage = 9; // Jobs to display per page
   useEffect(()=>{
     viewAllJobs()
   },[addJobResponse,editJobResponse])
@@ -79,15 +79,15 @@ if(token){
            {
             currentJobs.length>0?
             currentJobs.map(jobs=>(
-              <Col key={jobs?._id} sm={12} md={6} lg={4} xl={3}>
-            <Card className='ms-2 mt-3' style={{ width: '20rem' }}>
+              <Col key={jobs?._id} sm={12} md={6} lg={4} xl={4}>
+            <Card className='ms-2 mt-3' style={{ width: 'auto' }}>
                 <Card.Body style={{textAlign:"center"}}>
                   <Card.Title className='fs-3'>{jobs?.title}</Card.Title>
                   <Card.Subtitle className="my-2">Company Name : {jobs?.company}</Card.Subtitle>
                   <Card.Text>Salary : {jobs?.salary} PA</Card.Text>
                   <Card.Text>Deadline : {jobs?.deadline} </Card.Text>
-                  <div className='d-flex justify-content-between'>
-                    <button className='btn btn-outline-dark'><Link to={`/viewJobsAdmin/${jobs._id}`}>View Details</Link><i className="fa-solid fa-arrow-right ms-2"></i></button>
+                  <div className='d-flex justify-content-evenly'>
+                    <button className='btn btn-outline-dark'><Link to={`/viewJobsAdmin/${jobs._id}`} style={{textDecoration:"none"}}>View Details</Link><i className="fa-solid fa-arrow-right ms-2"></i></button>
                     <button onClick={()=>handledeleteJob(jobs?._id)} className="btn text-danger"><i className="fa-solid fa-trash"></i></button>
                     </div>
                 </Card.Body>
@@ -102,16 +102,18 @@ if(token){
             }
           </Row>   
           <div className='d-flex justify-content-center my-5'>
-            <Pagination>
-            <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
-              {Array.from({ length: Math.ceil(allJobs.length / jobsPerPage) }, (_, i) => (
-                <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
-                  {i + 1}
-                </Pagination.Item>
-              ))}
-            <Pagination.Next onClick={() => paginate(currentPage + 1)} />
-
+            {
+              currentJobs.length> 9 &&
+              <Pagination>
+                <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+                  {Array.from({ length: Math.ceil(allJobs.length / jobsPerPage) }, (_, i) => (
+                    <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                      {i + 1}
+                    </Pagination.Item>
+                  ))}
+                <Pagination.Next onClick={() => paginate(currentPage + 1)} />
             </Pagination>
+            }
           </div>
       </div>
       </div>

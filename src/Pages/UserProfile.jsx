@@ -18,12 +18,7 @@ function UserProfile() {
     const [userDetails,setUserDetails] = useState([])
     console.log(userDetails);
     
-    // const getUserDetails = async ()=>{
-    //     const result = await getUserDetailsAPI()
-    //     if(result.status==200){
-    //         setUserDetails(result.data)
-    //     }
-    // }
+
     const [updatedProfile,setUpdatedProfile] = useState({
         id:userDetails._id,
         username:userDetails.username,
@@ -36,8 +31,7 @@ function UserProfile() {
         experience:userDetails.experience,
         resumeFile:userDetails.resumeFile
     })
-    console.log(updatedProfile);
-    // const [existingResume,setExistingResume] = useState("")
+    // console.log(updatedProfile);
 
     const handleClose = () => {
         setShow(false);
@@ -57,7 +51,7 @@ function UserProfile() {
 
     const handleShow = (id) =>{ 
         setShow(true);
-        console.log(id);
+        // console.log(id);
         
         setUpdatedProfile({
             id:userDetails._id,
@@ -148,12 +142,7 @@ function UserProfile() {
             alert('Please upload a PDF file.');
         }
     };
-    // useEffect(()=>{
-    //     if(sessionStorage.getItem("user")){
-    //         const existingUserDetails = sessionStorage.getItem("user")
-    //         setUserDetails({...userDetails,username:existingUserDetails.username,email:existingUserDetails.email,password:existingUserDetails.password,mobile:existingUserDetails.mobile,gender:existingUserDetails.gender,location:existingUserDetails.location,skill:existingUserDetails.skill,experience:existingUserDetails.experience})
-    //     }
-    // },[])
+
     
     useEffect(()=>{
         getUserDetails()
@@ -176,15 +165,10 @@ function UserProfile() {
                        <div className='col-lg-6 ' style={{textAlign:'justify',width:"auto"}}>
                            <h3> <i className="fa-solid fa-circle-user text-primary me-3"></i> {userDetails.username}</h3>
                            <h3><i className="fa-solid fa-envelope text-info me-3"></i>{userDetails.email}</h3>
-                           {/* <h3>{userDetails.password}</h3> */}
                            <h3> <i className="fa-solid fa-phone text-success me-3"></i> {userDetails.mobile}</h3>
-                           {/* <h3>{userDetails.gender}</h3> */}
                            <h3><i className="fa-solid fa-location-dot text-danger me-3"></i>{userDetails.location}</h3>
                            <h3><i className="fa-solid fa-code me-3 text-warning"></i>{userDetails.skill}</h3>
                            <h3><i className="fa-solid fa-circle-check text-success me-3"></i>{userDetails.experience}</h3>
-                           {/* <h3>{userDetails.resumeFile}</h3>
-                           <h3>{userDetails.profilePic}</h3> */}
-
                            <div className="d-flex justify-content-center mt-3">
                             <button onClick={()=>handleShow(userDetails?._id)} className="btn btn-outline-warning rounded-5 ">
                                 EDIT

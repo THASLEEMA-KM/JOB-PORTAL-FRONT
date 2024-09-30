@@ -13,20 +13,10 @@ function ViewApplications() {
     const {deleteAppliedJobResponse,setDeleteAppliedJobResponse} = useContext(deleteAppliedJobResponseContext)
     const {updateJobStatus,setUpdateJobStatus} = useContext(updateJobStatusResponseContext)
 
-    // const [statusChange,setStatusChange] = useState({
-    //     status:''
-    // })
     const [allApplications,setAllApplications] = useState([])
-    // const [allApplications,setAllApplications] = useState({
-    //     username:"",
-    //     email:"",
-    //     resumeFile:"",
-    //     status:"",
-    // })
-console.log(allApplications);
+    // console.log(allApplications);
 
-
-    const {id} = useParams()
+    // const {id} = useParams()
 
     const [currentPage, setCurrentPage] = useState(1); 
     const jobsPerPage = 6; 
@@ -91,28 +81,7 @@ console.log(allApplications);
         
     }
 
-    // const handleDeleteApplication = async(applicationId)=>{
-    //     console.log("deleting application id" , applicationId);
-    //     const token = sessionStorage.getItem("token")
-    //     if(token){
-    //       const reqHeader = {
-    //         "Content-Type" : "application/json",
-    //         "Authorization" : `Bearer ${token}`
-    //       }
-    //       try {
-    //         const result = await removeAnApplicationAPI(applicationId,reqHeader)
-    //         if(result.status==200){
-            
-    //             getAllApplications()
-    //         }
-    //         else{
-    //           console.log(result);
-    //         }
-    //       } catch (error) {
-    //         console.log(error);
-    //       }
-    //     }
-    // }
+
     const getStatusClassName = (status) => {
         switch(status) {
             case 'Approved':
@@ -147,7 +116,6 @@ console.log(allApplications);
                                 <th>Status</th>
                                 <th>CV</th>
                                 <th>Action</th>
-                                {/* <th><i className="fa-solid fa-ellipsis"></i></th> */}
                             </tr>
                         </thead>
                         <tbody>
@@ -171,7 +139,6 @@ console.log(allApplications);
                                      <select name="" id="" className='form-control '
                                         value={items?.status}
                                         onChange={(e)=>handleStatusChange(e,items._id)}
-                                        // onChange={(e)=>setStatusChange({...statusChange,status:e.target.value})}
                                         >
                                             <option value="" selected disabled hidden> Select one</option>
                                             <option value="Approved">Approved</option>
@@ -179,18 +146,9 @@ console.log(allApplications);
                                             <option value="Rejected">Rejected</option>
                                         </select>
                                      </td>
-    
-                                     {/* <td>
-                                     <button onClick={()=>handleDeleteAppliedJob(items?._id)} className="btn  text-danger"> <i className="fa-solid fa-trash"></i> </button>
-                                     <i onClick={()=>handleDeleteApplication(items?._id)} className="fa-solid fa-trash text-danger"></i> 
-                                     </td> */}
-                                     
                                      </tr>
                                  ))
-                                //  :
-                                //  <div>
-                                //      no applications
-                                //  </div>
+                               
                             }
                         </tbody>
                     </table>

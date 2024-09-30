@@ -1,7 +1,6 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from './Components/Footer'
-// import Header from './Components/Header'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
@@ -19,6 +18,7 @@ import UserDashboard from './Pages/UserDashboard'
 import UserProfile from './Pages/UserProfile'
 import { useContext } from 'react'
 import { tokenAuthContext } from './Contexts/AuthContext'
+// import AllApplications from './Pages/AllApplications'
 
 
 
@@ -29,19 +29,15 @@ const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
 
   return (
     <>
-    {/* <Header/> */}
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/login' element={<Login/>}></Route>
         <Route path='/register' element={<Register/>}></Route>
 
-
         {/* user  */}
         <Route path='/viewjobs' element={<ViewJob/>}></Route>
         <Route path='/viewjobs/:id' element={<ViewAJob/>}></Route>
-        {/* <Route path='/appliedjobs' element={ <AppliedJobs/> } ></Route> */}
         <Route path='/appliedjobs' element={isAuthorised && <AppliedJobs/>  } ></Route>
-
         <Route path='/viewjobs/:id/applyAjob' element={isAuthorised && <ApplyJobs/> }></Route>
         <Route path='/savedjobs' element={isAuthorised && <SavedJobs/>  }></Route>
         <Route path='/userdashboard' element={isAuthorised && <UserDashboard/>}></Route>
@@ -53,6 +49,7 @@ const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
         <Route path='/viewJobsAdmin' element={isAuthorised && <ViewJobAdmin/> }></Route>
         <Route path='/viewJobsAdmin/:id' element={isAuthorised && <ViewAJobAdmin/> }></Route>
         <Route path='/viewJobsAdmin/:id/viewapplications' element={isAuthorised && <ViewApplications/> }></Route>
+        {/* <Route path='/allApplications' element={ isAuthorised && <AllApplications/>}></Route> */}
 
       </Routes>
       <Footer/>

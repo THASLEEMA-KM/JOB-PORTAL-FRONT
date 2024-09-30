@@ -263,21 +263,6 @@ const handleCancel = ()=>{
                 />
                 {errors.experience && <p className="text-danger">{errors.experience}</p>}
               </Form.Group>
-              {/* <Form.Group className="mb-3" controlId="formGroupExperience">
-                <Form.Label className='text-black'>Experience :</Form.Label>
-                <div className="d-flex">
-                  <Form.Control className='border rounded p-3 text-black me-2' type="number" placeholder="Enter experience count"
-                    value={postJob.experience}
-                    name="experienceCount"
-                    onChange={handleChange}
-                  />
-                  <select name="experienceUnit" className='form-control w-auto' value={postJob.experience} onChange={handleChange}>
-                    <option value="years">Years</option>
-                    <option value="months">Months</option>
-                  </select>
-                </div>
-                {errors.experience && <p className="text-danger">{errors.experience}</p>}
-              </Form.Group> */}
 
               <Form.Group className="mb-3" controlId="formGroupVacancy">
                 <Form.Label className='text-black'>Vacancy :</Form.Label>

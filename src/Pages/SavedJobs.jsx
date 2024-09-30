@@ -28,7 +28,6 @@ const getSavedJobs = async()=>{
         deadline: new Date(job.deadline).toLocaleDateString(),
       }));
       setSavedJobs(jobs);
-      // setSavedJobs(result.data)
     }
     
   } catch (error) {
