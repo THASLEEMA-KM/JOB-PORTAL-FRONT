@@ -71,8 +71,8 @@ const Header = ({insideUserDashboard}) => {
             }
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ms-auto">
+              <Navbar.Collapse id="basic-navbar-nav" className='navigation'>
+                <Nav className="ms-auto ">
                   <Nav.Link   className='text-primary fw-bolder'><button onClick={handlehome} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >HOME</button></Nav.Link>
                   <Nav.Link className='text-primary fw-bolder'><button onClick={handleviewjob} className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} >VIEW JOBS</button></Nav.Link>
                   <Nav.Link  className='text-primary fw-bolder'><button className='btn btn-link  fw-bolder' style={{textDecoration:"none"}} onClick={handleAppliedjob} > APPLIED JOBS</button></Nav.Link>
