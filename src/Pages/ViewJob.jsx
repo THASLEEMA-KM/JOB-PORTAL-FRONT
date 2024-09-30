@@ -84,7 +84,7 @@ const ViewJob = () => {
           </Row>   
           <div className='d-flex justify-content-center my-5'>
           {
-              currentJobs.length> 8 &&
+              currentJobs.length> 0 &&
               <Pagination>
                 <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
                   {Array.from({ length: Math.ceil(allJobs.length / jobsPerPage) }, (_, i) => (
