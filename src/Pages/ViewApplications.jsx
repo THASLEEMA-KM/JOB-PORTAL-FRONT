@@ -109,7 +109,9 @@ function ViewApplications() {
                         <div className="col"></div>
                     <div className='col-lg-8'>
                             <div className='table-responsive'>
-                                <table className='table border w-100 shadow'>
+                                {
+                                    currentapplications?.length > 0 &&
+                                    <table className='table border w-100 shadow'>
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -153,11 +155,11 @@ function ViewApplications() {
                                         
                                         }
                                     </tbody>
-                                </table>
+                                </table>}
                             </div>
                             {
                                         currentapplications?.length==0 &&
-                                    <div className='fw-bolder text-center text-danger'>
+                                    <div className='fw-bolder text-center text-danger fs-2'>
                                         NO APPLICATIONS YET!!!
                                     </div>
                                     }

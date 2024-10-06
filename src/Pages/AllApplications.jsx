@@ -58,23 +58,6 @@ function AllApplications() {
       }
     };
     
-// useEffect(() => {
-//   if (applyResponse) {
-//     getAllUserApplications();
-//   }
-// }, [applyResponse]);
-
-// useEffect(() => {
-//   if (deleteAppliedJobResponse) {
-//     getAllUserApplications();
-//   }
-// }, [deleteAppliedJobResponse]);
-
-// // Call this once on initial mount to fetch all applications
-// useEffect(() => {
-//   getAllUserApplications();
-// }, []);
-
     useEffect(() => {
       getAllUserApplications();
     }, [applyResponse,deleteAppliedJobResponse]);
@@ -93,7 +76,9 @@ function AllApplications() {
         <div className="row mt-5 d-flex">
           <div className="col"></div>
           <div className="col-lg-10">
-            <div className="table-responsive">
+            {
+              currentAppliedJobs?.length > 0 &&
+              <div className="table-responsive">
               <table className="table border shadow">
                 <thead>
                   <tr>
@@ -136,8 +121,9 @@ function AllApplications() {
                 </tbody>
               </table>
             </div>
+            }
             {currentAppliedJobs?.length == 0 && (
-              <div className="fw-bolder text-center text-danger">
+              <div className="fw-bolder text-center text-danger fs-2">
                 NO APPLICATIONS YET!!!
               </div>
             )}

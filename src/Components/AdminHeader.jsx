@@ -58,7 +58,12 @@ function AdminHeader({insideDashboard}) {
                   <Nav.Link  className='text-primary fw-bolder'><Link to={'/dashboard'} style={{textDecoration:"none"}}>HOME</Link></Nav.Link>
                   <Nav.Link  className='text-primary fw-bolder'><Link to={'/postjobs'} style={{textDecoration:"none"}} >POST JOBS</Link></Nav.Link>
                   <Nav.Link  className='text-primary fw-bolder'><Link to={'/viewJobsAdmin'} style={{textDecoration:"none"}}>VIEW JOBS</Link></Nav.Link>
-                  <Nav.Link  className='text-primary fw-bolder'><Link to={'/allApplications'} style={{textDecoration:"none"}}>APPLICATIONS<Badge bg="secondary" className='text-success'>{applyResponse?.length}</Badge></Link></Nav.Link>
+                  <Nav.Link  className='text-primary fw-bolder'><Link to={'/allApplications'} style={{textDecoration:"none"}}>APPLICATIONS
+                  {
+                  applyResponse?.length > 0 &&
+                    <Badge bg="secondary" className='text-success'>{applyResponse?.length}</Badge>
+                  }
+                  </Link></Nav.Link>
                 </Nav>
                 <Nav className='ms-auto jusify-content-between'>
                   { insideDashboard &&

@@ -107,7 +107,8 @@ function AppliedJobs() {
           <div className="col"></div>
           <div className="col-lg-10">
             <div className="table-responsive">
-              <table className="table border shadow">
+              {currentAppliedJobs?.length > 0 &&
+                <table className="table border shadow">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -154,10 +155,10 @@ function AppliedJobs() {
                     ))
                   }
                 </tbody>
-              </table>
+              </table>}
             </div>
             {currentAppliedJobs?.length == 0 && (
-              <div className="fw-bolder text-center text-danger">
+              <div className="fw-bolder text-center text-danger fs-2">
                 NO APPLICATIONS YET!!!
               </div>
             )}

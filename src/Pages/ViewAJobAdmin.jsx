@@ -154,7 +154,7 @@ function ViewAJobAdmin() {
                 
                 <div className="d-flex mt-5 justify-content-evenly">
                   <button onClick={()=>handleShow(jobDetails?._id)} className="btn btn-warning me-2">Edit</button>
-                  <button className="btn btn-outline-primary"><Link style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
+                  <button className="btn btn-outline-primary "><Link className='text-dark' style={{textDecoration:"none"}} to={`/viewJobsAdmin/${jobDetails?._id}/viewapplications`}>View Applications</Link></button>
                 </div>
             </div>
             <div className="col-lg-2"></div>

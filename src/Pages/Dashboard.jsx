@@ -102,7 +102,7 @@ function Dashboard() {
         {
             searchPerformed && searchedjobs.length > 0 && (
             <div className="mt-2 container">
-              <h3>Search Results</h3>
+              <h3 className='text-primary text-center fw-bolder py-3'>Search Results</h3>
               <div className="row">
                 {currentsearchedJobs.map(job => (
                   <div key={job.id} className="col-lg-4 mb-3">
