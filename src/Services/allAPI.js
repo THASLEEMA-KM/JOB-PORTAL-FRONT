@@ -69,7 +69,7 @@ export const removeSavedJobAPI = async(id,reqHeader)=>{
 export const applyJobAPI = async(id,reqBody,reqHeader)=>{
     return await commonAPI("POST",`${SERVER_URL}/viewjob/${id}`,reqBody,reqHeader)
 }
-// get applied jobs
+// get applied jobs to user
 export const getAppliedJobsAPI = async(reqHeader)=>{
     return await commonAPI("GET",`${SERVER_URL}/appliedjob`,"",reqHeader)
 }
@@ -83,6 +83,12 @@ export const removeAppliedJobAPI = async(id,reqHeader)=>{
 export const getAllAppliedJobsAPI = async(id,reqHeader)=>{
     return await commonAPI("GET",`${SERVER_URL}/viewjob/${id}/viewApplication`,"",reqHeader)
 }  
+
+// get all applications to amin
+export const getAllApplicationsAPI = async(reqHeader)=>{
+    return await commonAPI("GET",`${SERVER_URL}/allApplications`,"",reqHeader)
+}  
+
 
 // update job status 
 export const updateJobStatusAPI = async(id,applicationId,data,reqHeader)=>{

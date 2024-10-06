@@ -18,7 +18,7 @@ import UserDashboard from './Pages/UserDashboard'
 import UserProfile from './Pages/UserProfile'
 import { useContext } from 'react'
 import { tokenAuthContext } from './Contexts/AuthContext'
-// import AllApplications from './Pages/AllApplications'
+import AllApplications from './Pages/AllApplications'
 
 
 
@@ -49,7 +49,7 @@ const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
         <Route path='/viewJobsAdmin' element={isAuthorised && <ViewJobAdmin/> }></Route>
         <Route path='/viewJobsAdmin/:id' element={isAuthorised && <ViewAJobAdmin/> }></Route>
         <Route path='/viewJobsAdmin/:id/viewapplications' element={isAuthorised && <ViewApplications/> }></Route>
-        {/* <Route path='/allApplications' element={ isAuthorised && <AllApplications/>}></Route> */}
+        <Route path='/allApplications' element={ isAuthorised && <AllApplications/>}></Route>
 
       </Routes>
       <Footer/>

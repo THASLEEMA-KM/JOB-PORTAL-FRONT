@@ -16,7 +16,7 @@ function ViewApplications() {
     const [allApplications,setAllApplications] = useState([])
     // console.log(allApplications);
 
-    // const {id} = useParams()
+    const {id} = useParams()
 
     const [currentPage, setCurrentPage] = useState(1); 
     const jobsPerPage = 6; 
@@ -99,88 +99,91 @@ function ViewApplications() {
     },[applyResponse,deleteAppliedJobResponse,updateJobStatus])
 
   return (
-    <div style={{marginTop:"150px",minHeight:"100vh"}}>
-        <AdminHeader insideDashboard={true}/>
-        <h1 className="my-3 text-center">All Applicants</h1>
-        <p className='text-center'>Total Count : {allApplications?.length}</p>
-        <div className='row container-fluid mt-5 d-flex'>
-            <div className="col"></div>
-           <div className='col-lg-8'>
-                <div className='table-responsive'>
-                    <table className='table border w-100 shadow'>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>CV</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+        <>
+            <AdminHeader insideDashboard={true}/>
+            <div style={{marginTop:"150px",minHeight:"100vh"}}>
+                    
+                    <h1 className="my-3 text-center">All Applicants</h1>
+                    <p className='text-center'>Total Count : {allApplications?.length}</p>
+                    <div className='row container-fluid mt-5 d-flex'>
+                        <div className="col"></div>
+                    <div className='col-lg-8'>
+                            <div className='table-responsive'>
+                                <table className='table border w-100 shadow'>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>CV</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            currentapplications?.length>0 &&
+                                            currentapplications?.map((items,index)=>(
+                                                <tr key={items?._id}>
+                
+                                                <td>{index+1}</td>                        
+                                                <td>{items?.username}</td>
+                                                <td>{items?.email}</td>
+                                                <td className={getStatusClassName(items?.status)}>
+                                                    {items?.status}
+                                                </td>
+                                                <td>
+                                                <a style={{textDecoration:"none"}} href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
+                            Download CV
+                        </a>
+                                                </td>
+                                                <td>
+                                                <select name="" id="" className='form-control '
+                                                    value={items?.status}
+                                                    onChange={(e)=>handleStatusChange(e,items._id)}
+                                                    >
+                                                        <option value="" selected disabled hidden> Select one</option>
+                                                        <option value="Approved">Approved</option>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Rejected">Rejected</option>
+                                                    </select>
+                                                </td>
+                                                </tr>
+                                            ))
+                                        
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                             {
-                                 currentapplications?.length>0 &&
-                                 currentapplications?.map((items,index)=>(
-                                     <tr key={items?._id}>
-    
-                                     <td>{index+1}</td>                        
-                                     <td>{items?.username}</td>
-                                     <td>{items?.email}</td>
-                                     <td className={getStatusClassName(items?.status)}>
-                                        {items?.status}
-                                     </td>
-                                     <td>
-                                     <a style={{textDecoration:"none"}} href={items.resumeFile} download target="_blank" rel="noopener noreferrer">
-                Download CV
-              </a>
-                                     </td>
-                                     <td>
-                                     <select name="" id="" className='form-control '
-                                        value={items?.status}
-                                        onChange={(e)=>handleStatusChange(e,items._id)}
-                                        >
-                                            <option value="" selected disabled hidden> Select one</option>
-                                            <option value="Approved">Approved</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Rejected">Rejected</option>
-                                        </select>
-                                     </td>
-                                     </tr>
-                                 ))
-                               
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                {
-                            currentapplications?.length==0 &&
-                        <div className='fw-bolder text-center text-danger'>
-                            NO APPLICATIONS YET!!!
-                        </div>
-                        }
-                {
-                    currentapplications.length>10 &&
-                    <div className='d-flex justify-content-center my-5'>
-                    <Pagination>
-                    <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
-                    {Array.from({ length: Math.ceil(allApplications.length / jobsPerPage) }, (_, i) => (
-                        <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
-                        {i + 1}
-                        </Pagination.Item>
-                    ))}
-                    <Pagination.Next onClick={() => paginate(currentPage + 1)} />
-
-                    </Pagination>
-                </div>}
-
-           </div>
-           <div className="col"></div>
-
-        </div>
-        <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
-
-    </div>
+                                        currentapplications?.length==0 &&
+                                    <div className='fw-bolder text-center text-danger'>
+                                        NO APPLICATIONS YET!!!
+                                    </div>
+                                    }
+                            {
+                                currentapplications.length>10 &&
+                                <div className='d-flex justify-content-center my-5'>
+                                <Pagination>
+                                <Pagination.Prev onClick={() => paginate(currentPage - 1)} />
+                                {Array.from({ length: Math.ceil(allApplications.length / jobsPerPage) }, (_, i) => (
+                                    <Pagination.Item key={i + 1} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                                    {i + 1}
+                                    </Pagination.Item>
+                                ))}
+                                <Pagination.Next onClick={() => paginate(currentPage + 1)} />
+            
+                                </Pagination>
+                            </div>}
+            
+                    </div>
+                    <div className="col"></div>
+            
+                    </div>
+                    <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
+            
+            </div>
+        </>
   )
 }
 

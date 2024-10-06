@@ -23,17 +23,17 @@ function ContextAPI({children}) {
         <deletePostedJobResponseContext.Provider value={{deletePostedJobResponse,setDeletePostedJobResponse}}>
           <saveReponseContext.Provider value={{saveResponse,setSaveResponse}}>
               <updateJobStatusResponseContext.Provider value={{updatejobStatus,setUpdateJobStatus}}>
-                <deleteAppliedJobResponseContext.Provider value={{deleteAppliedJobResponse,setDeleteAppliedJobResponse}}>
-                  <applyReponseContext.Provider value={{applyResponse,setApplyResponse}}>
+              <applyReponseContext.Provider value={{applyResponse,setApplyResponse}}>
                     <editJobResponseContext.Provider value={{editJobResponse,setEditJobResponse}}>
                         <updateProfileResponseContext.Provider value={{updateProfileResponse,setUpdateProfileResponse}}>
                           <addjobResponseContext.Provider value={{addJobResponse,setAddJobResponse}}>
-                            {children}
+                            <deleteAppliedJobResponseContext.Provider value={{deleteAppliedJobResponse,setDeleteAppliedJobResponse}}>
+                              {children}
+                            </deleteAppliedJobResponseContext.Provider>
                           </addjobResponseContext.Provider>
                         </updateProfileResponseContext.Provider>
                     </editJobResponseContext.Provider>
                   </applyReponseContext.Provider>
-                </deleteAppliedJobResponseContext.Provider>
               </updateJobStatusResponseContext.Provider>
           </saveReponseContext.Provider>
         </deletePostedJobResponseContext.Provider>

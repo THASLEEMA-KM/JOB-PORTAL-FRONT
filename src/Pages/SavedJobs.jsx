@@ -21,8 +21,9 @@ const getSavedJobs = async()=>{
     }
   try {
     const result = await getSavedJobsAPI(reqHeader)
-    console.log(result);
+    // console.log(result);
     if(result.status==200){
+      setEditJobResponse(result.data)
       const jobs = result.data.map(job => ({
         ...job,
         deadline: new Date(job.deadline).toLocaleDateString(),
@@ -79,7 +80,7 @@ useEffect(()=>{
                     <Card.Body style={{textAlign:"center"}}>
                       <Card.Title className='fs-3'>{item?.title}</Card.Title>
                       <Card.Subtitle className="my-2">Company Name : {item?.company.split(" ")[0]}</Card.Subtitle>
-                      <Card.Text>Salary : {item?.salary}</Card.Text>
+                      <Card.Text>Salary : {item?.salary} PA</Card.Text>
                       <Card.Text>Deadline : {item?.deadline} </Card.Text>
                       <div className='justify-content-between d-flex'>
                         <Card.Link className='btn btn-outline-primary' ><Link to={`/viewjobs/${item?.id}`}>View Details</Link> <i className="fa-solid fa-arrow-right"></i> </Card.Link>

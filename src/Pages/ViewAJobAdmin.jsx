@@ -15,7 +15,7 @@ function ViewAJobAdmin() {
 
     const [jobDetails,setJobDetails] = useState([])
 
-    console.log(jobDetails);
+    // console.log(jobDetails);
     const {id} = useParams()
 
     const formatDate = (dateString) => {

@@ -55,11 +55,11 @@ const ViewJob = () => {
   return (
    <>
    <Header insideUserDashboard={true}/>
-      <div style={{marginTop:"180px",minHeight:"100vh"}}>
+      <div style={{marginTop:"150px",minHeight:"100vh"}} className='container-fluid'>
       <div className=' align-items-center container-fluid justify-content-center'>
       <h1 className="text-center fw-bolder mt-3 mb-5 text-primary animate__animated animate__bounceIn">Find Your dream Jobs Here..!</h1>
         {/* this is to be dublicated part */}
-          <Row className='container-fluid  d-flex justify-content-center' >
+          <Row className='container-fluid d-flex justify-content-center' >
            {
             currentJobs.length>0?
             currentJobs.map(jobs=>(

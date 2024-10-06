@@ -1,13 +1,41 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import './header.css'
+import { Badge } from 'react-bootstrap';
+import { getAllApplicationsAPI } from '../Services/allAPI';
+import { applyReponseContext, deleteAppliedJobResponseContext } from '../Contexts/ContextAPI';
 
 function AdminHeader({insideDashboard}) {
 
   const navigate = useNavigate()
+  const { applyResponse, setApplyResponse } = useContext(applyReponseContext);
+  const { deleteAppliedJobResponse, setDeleteAppliedJobResponse } = useContext(
+    deleteAppliedJobResponseContext
+  );
+  const getAllUserApplications = async () => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const reqHeader = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+      try {
+        const result = await getAllApplicationsAPI(reqHeader);
+        if (result.status == 200) {
+          setApplyResponse(result.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    getAllUserApplications();
+  }, [applyResponse,deleteAppliedJobResponse]);
 
   const handleLogout = ()=>{
     sessionStorage.clear()
@@ -30,6 +58,7 @@ function AdminHeader({insideDashboard}) {
                   <Nav.Link  className='text-primary fw-bolder'><Link to={'/dashboard'} style={{textDecoration:"none"}}>HOME</Link></Nav.Link>
                   <Nav.Link  className='text-primary fw-bolder'><Link to={'/postjobs'} style={{textDecoration:"none"}} >POST JOBS</Link></Nav.Link>
                   <Nav.Link  className='text-primary fw-bolder'><Link to={'/viewJobsAdmin'} style={{textDecoration:"none"}}>VIEW JOBS</Link></Nav.Link>
+                  <Nav.Link  className='text-primary fw-bolder'><Link to={'/allApplications'} style={{textDecoration:"none"}}>APPLICATIONS<Badge bg="secondary" className='text-success'>{applyResponse?.length}</Badge></Link></Nav.Link>
                 </Nav>
                 <Nav className='ms-auto jusify-content-between'>
                   { insideDashboard &&

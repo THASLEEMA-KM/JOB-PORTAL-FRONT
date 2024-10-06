@@ -18,7 +18,7 @@ function AppliedJobs() {
   const { updateJobStatus } = useContext(updateJobStatusResponseContext);
 
   const [userAppliedJobs, setUserAppliedJobs] = useState([]);
-  console.log(userAppliedJobs);
+  // console.log(userAppliedJobs);
 
   const getUserAppliedJobs = async () => {
     const token = sessionStorage.getItem("token");
