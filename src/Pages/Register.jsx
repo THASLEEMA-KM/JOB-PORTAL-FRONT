@@ -100,7 +100,7 @@ const Register = () => {
         <h1 className="text-center fw-bolder text-primary">REGISTER HERE</h1>
         <div className="row d-flex justify-content-center align-items-center mt-5">
           <div className="col-lg-2"></div>
-          <div className="col-lg-8 p-5 shadow rounded" style={{ width: "auto" }}>
+          <div className="col-lg-8 p-5 shadow rounded m-3" style={{ width: "auto" }}>
             
             <FloatingLabel controlId="floatingInputName" label="Your Name" className="mb-3">
               <Form.Control 
